@@ -1,0 +1,71 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.VolunteerOpportunityModel
+@{
+    ViewData["Title"] = "Volunteer Opportunity";
+}
+
+<div class="container">
+    <h1>Volunteer Opportunities!</h1>
+    <h5>(Select to Volunteer)</h5>
+    <form method="post">
+        <table class="table table-striped">
+            @{ for (int i = 0; i < Model.GuardianObj.Opportunity.Count; i++)
+                {
+                    bool alreadyVolunteered = false;
+
+                    for (int x = 0; x < Model.GuardianObj.GuardiansVolunteered.Count; x++)
+                    {
+                        if (Model.GuardianObj.GuardiansVolunteered[x].Value == Model.GuardianObj.Opportunity[i].Value)
+                        {
+                            alreadyVolunteered = true;
+                            <tr hidden>
+                                <td>
+                                    <input asp-for="@Model.GuardianObj.Opportunity[i].Value" type="hidden" />
+                                    <input asp-for="@Model.GuardianObj.Opportunity[i].Text" type="hidden" />
+                                    <input asp-for="@Model.GuardianObj.Opportunity[i].Selected" type="hidden" />
+                                </td>
+                            </tr>
+
+                        }
+                    }
+
+                    if (alreadyVolunteered == false)
+                    {
+
+                        <tr>
+                            <td>
+                                <input asp-for="@Model.GuardianObj.Opportunity[i].Value" type="hidden" />
+                                <input asp-for="@Model.GuardianObj.Opportunity[i].Text" type="hidden" />
+                                <input asp-for="@Model.GuardianObj.Opportunity[i].Selected" />
+                                <label>@Model.GuardianObj.Opportunity[i].Text</label>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+
+        </table>
+
+        <h2>You've Volunteered For:</h2>
+        <h5>(Select to Withdraw from Volunteer Opportunity)</h5>
+        <table class="table table-striped">
+            @{ for (int i = 0; i < Model.GuardianObj.GuardiansVolunteered.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input asp-for="@Model.GuardianObj.GuardiansVolunteered[i].Value" type="hidden" />
+                            <input asp-for="@Model.GuardianObj.GuardiansVolunteered[i].Text" type="hidden" />
+                            <input asp-for="@Model.GuardianObj.GuardiansVolunteered[i].Selected" />
+                            <label>@Model.GuardianObj.GuardiansVolunteered[i].Text</label>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </table>
+        <div class="text-center">
+            <input type="submit" value="Submit" class="button btn-loader" data-submit-text="Processing">
+        </div>
+    </form>
+
+</div>

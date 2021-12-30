@@ -1,0 +1,50 @@
+﻿@page "{PricingID}"
+@model CS4790GroupProject.Pages.Admin.ProgramPricings.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.ProgramPricing.PricingID == 0 ? "Create" : "Update") Program Pricing</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="ProgramPricing.PricingID" />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ProgramPricing.Price"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="ProgramPricing.Price" />
+                <span class="text-danger" asp-validation-for="ProgramPricing.Price"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ProgramPricing.PriceTypeID"></label>
+            </div>
+            <div class="col-9">
+                <select asp-for="ProgramPricing.PriceTypeID" asp-items="Model.PriceTypes"></select>
+                <span class="text-danger" asp-validation-for="ProgramPricing.PriceTypeID"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ProgramPricing.SemesterID"></label>
+            </div>
+            <div class="col-9">
+                <select asp-for="ProgramPricing.SemesterID" asp-items="Model.Semesters"></select>
+                <span class="text-danger" asp-validation-for="ProgramPricing.SemesterID"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ProgramPricing.ProgramID"></label>
+            </div>
+            <div class="col-9">
+                <select asp-for="ProgramPricing.ProgramID" asp-items="Model.Programs"></select>
+                <span class="text-danger" asp-validation-for="ProgramPricing.ProgramID"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

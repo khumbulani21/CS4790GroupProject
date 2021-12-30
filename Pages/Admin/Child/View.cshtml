@@ -1,0 +1,395 @@
+﻿@page "{ChildID}"
+@model CS4790GroupProject.Pages.Admin.Child.ViewModel
+@{
+}
+<div class="container">
+    <div class="row">
+        <fieldset class="col-md-5">
+            <legend class="color-1">@Model.Child.FullName</legend>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Date of Birth</span>
+                </div>
+                <div class="col-12">
+                    <span class="pl-3 info-text">@Model.Child.ChildDOB.ToShortDateString()</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Gender</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Child.ChildGender</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Utah Immune ID</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Child.ChildUtahImmuneID</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="offset-md-1 col-md-5">
+            <legend class="color-1">Guardians</legend>
+            <div class="row">
+                @foreach (var familyGroup in Model.Child.FamilyGroups)
+                {
+                    <div class="col-12 mb-2">
+                        <a asp-page="/Admin/Guardians/View" asp-route-guardianID="@familyGroup.GuardianID">@familyGroup.Guardian.FullName <i class="fi-arrow-right">‌</i></a>
+                        <div class="pl-3 text-secondary" style="font-size: .75em;">
+                            @familyGroup.RelationshipType.RelationshipDescription
+                        </div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset class="col-md-5">
+            <legend class="color-1">Application Status</legend>
+            @foreach (var application in Model.Child.Applications)
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <a asp-page="/Admin/Application/View" asp-route-applicationid="@application.ApplicationID">Program: @application.Program.ProgramName <i class="fi-arrow-right">‌</i></a>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">@application.ApplicationStatus</span>
+                    </div>
+                </div>
+            }
+        </fieldset>
+        @if (Model.Child.Applications != null && Model.Child.Applications.Any())
+        {
+            <fieldset class="offset-md-1 col-md-5">
+                <legend class="color-1">Additional Child Info</legend>
+                <div class="row">
+                    <div class="col-12">
+                        <span data-open="healthAssessment">Child Health Assessment</span>
+                        @if (Model.healthAssessment != null)
+                        {
+                            <strong style="cursor:pointer" data-open="healthAssessment" class="success-color">View</strong>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Not Submitted</span>
+                        }
+                    </div>
+                    <div class="col-12">
+                        <span>Child's Routine</span>
+                        @if (Model.childsRoutine != null)
+                        {
+                            <strong style="cursor:pointer" data-open="childRoutine" class="success-color">View</strong>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Not Submitted</span>
+                        }
+                    </div>
+                    <div class="col-12">
+                        <span>Goals</span>
+                        @if (Model.childGoals != null)
+                        {
+                            <strong style="cursor:pointer" data-open="childGoals" class="success-color">View</strong>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Not Submitted</span>
+                        }
+                    </div>
+                    <div class="col-12">
+                        <span>Guidance Behavior</span>
+                        @if (Model.guidanceBehavior != null)
+                        {
+                            <strong style="cursor:pointer" data-open="guidanceBehavior" class="success-color">View</strong>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Not Submitted</span>
+                        }
+                    </div>
+                    <div class="col-12">
+                        <span>Home Environment</span>
+                        @if (Model.homeEnvironment != null)
+                        {
+                            <strong style="cursor:pointer" data-open="homeEnvironment" class="success-color">View</strong>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Not Submitted</span>
+                        }
+                    </div>
+                </div>
+            </fieldset>
+        }
+
+    </div>
+    <div class="row">
+        <fieldset class="col-md-5">
+            <legend class="color-1">Contact Info</legend>
+            @if (Model.ContactInfos != null && Model.ContactInfos.Any())
+            {
+                foreach (var contact in Model.ContactInfos)
+                {
+                    <div class="row mb-2 border-bottom pb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">@contact.ContactFirst @contact.ContactLast</span>
+                        </div>
+                        <div class="col-12">
+                            <span class="info-text pl-3">@contact.ContactType.ContactTypeDescription - @contact.ContactValue</span>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-4">
+                                    Primary
+                                    <i class='@(contact.PrimaryContact ? "fi-check success-color" : "fi-x alert-color")'></i>
+                                </div>
+                                <div class="col-4">
+                                    Out of Area
+                                    <i class='@(contact.OutOfArea ? "fi-check success-color" : "fi-x alert-color")'></i>
+                                </div>
+                                <div class="col-4">
+                                    Authorized
+                                    <i class='@(contact.AuthorizedToPickUp != null ? "fi-check success-color" : "fi-x alert-color")'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <span>This child does not have contact information set up</span>
+            }
+        </fieldset>
+        <fieldset class="offset-md-1 col-md-5">
+            <legend class="color-1">Medical Info</legend>
+            @if (Model.MedicalContacts != null)
+            {
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Hospital Preference</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">@Model.MedicalContacts.HospitalPreference</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Insurance</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">@Model.MedicalContacts.Insurance</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Doctor</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">Name: @Model.MedicalContacts.DoctorFirstName @Model.MedicalContacts.DoctorLastName</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">Phone: @Model.MedicalContacts.DoctorPhoneNumber</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Dentist</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">Name: @Model.MedicalContacts.DentistFirstName @Model.MedicalContacts.DentistLastName</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">Phone: @Model.MedicalContacts.DentistPhoneNumber</span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <span>This child does not have medical contact information set up</span>
+            }
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset class="col-md-5">
+            <legend class="color-1">Absences</legend>
+            @if (Model.Absences != null && Model.Absences.Any())
+            {
+                foreach (var absense in Model.Absences)
+                {
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">@absense</span>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    This child does not have absences
+                </div>
+            }
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset class="col-md-11">
+            <legend class="color-1">Attendance History</legend>
+            @if (Model.Attendances != null && Model.Attendances.Any())
+            {
+                <table>
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Checked In
+                        </th>
+                        <th>
+                            Checked Out
+                        </th>
+                        <th>
+                            B
+                        </th>
+                        <th>
+                            L
+                        </th>
+                        <th>
+                            S
+                        </th>
+                    </tr>
+                    @foreach (var attendance in Model.Attendances.OrderByDescending(i => i.AttendIn).Take(10))
+                    {
+                        <tr>
+                            <td>
+                                @attendance.AttendIn.ToShortDateString()
+                            </td>
+                            <td>
+                                @attendance.AttendIn.ToString("hh:mm tt")
+                            </td>
+                            <td>
+                                @(attendance.AttendOut.HasValue ? attendance.AttendOut.Value.ToString("hh:mm tt") : Html.Raw("<strong class='text-danger'>Missing</strong>"))
+                            </td>
+                            <td>
+                                <i class='large @(attendance.HadBreakfast ? "fi-check success-color" : "fi-x alert-color")'></i>
+                            </td>
+                            <td>
+                                <i class='large @(attendance.HadLunch ? "fi-check success-color" : "fi-x alert-color")'></i>
+                            </td>
+                            <td>
+                                <i class='large @(attendance.HadSnack ? "fi-check success-color" : "fi-x alert-color")'></i>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            }
+            else
+            {
+                <div>
+                    This child has not attended any programs
+                </div>
+            }
+        </fieldset>
+
+    </div>
+    <div class="row">
+        <fieldset class="col-md-11">
+            <legend>
+                Notes
+                <span class="float-right mr-3">
+                    <i class="fi-plus large success-color" style="cursor:pointer" data-open="addNote">‌</i>
+                </span>
+            </legend>
+            @if (Model.Child.Notes != null && Model.Child.Notes.Any())
+            {
+                foreach (var note in Model.Child.Notes.OrderByDescending(i => i.EnteredOn))
+                {
+                    <div class="row border-bottom border-secondary mb-3 pb-2">
+                        <div class="col-12">
+                            <h3>@note.EnteredOn.ToShortDateString()</h3>
+                        </div>
+                        <div class="col-12">
+                            @note.Note
+                        </div>
+                        <div class="col-12">
+                            <strong>Visible To Guardian(s): </strong> @(note.IsPublic ? "Yes" : "No")
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(note.Image))
+                        {
+                            <div class="col-12">
+                                <h5>Image:</h5>
+                            </div>
+                            <div class="col-12">
+                                <img src="@note.Image" class="rounded" width="120" height="80" />
+                            </div>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <span>There are no notes saved yet.</span>
+            }
+        </fieldset>
+    </div>
+</div>
+
+<div class="reveal modal-small" id="addNote" data-reveal>
+    <h2 class="border-bottom">Add Note</h2>
+    <form id="account" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="NoteForm.ChildNoteID" />
+        <input type="hidden" asp-for="NoteForm.ChildID" value="@Model.Child.ChildID" />
+        <div class="form-group">
+            <label asp-for="NoteForm.Note"></label>
+            <textarea asp-for="NoteForm.Note" class="form-control"></textarea>
+            <span asp-validation-for="NoteForm.Note" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label asp-for="NoteForm.IsPublic">
+                    <input asp-for="NoteForm.IsPublic" />
+                    @Html.DisplayNameFor(m => m.NoteForm.IsPublic)
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="NoteForm.Image"></label>
+            <input asp-for="NoteForm.Image" class="form-control" id="uploadImgBox" accept="image/*" type="file" />
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Save Note</button>
+        </div>
+    </form>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+@if (Model.healthAssessment != null)
+{
+    <partial name="_AdminHealthAssessment" model="@Model.healthAssessment" />
+}
+
+@if (Model.childsRoutine != null)
+{
+    <partial name="_AdminChildsRoutine" model="@Model.childsRoutine" />
+}
+
+@if (Model.childGoals != null)
+{
+    <partial name="_AdminChildsGoals" model="@Model.childGoals"/>
+}
+
+@if (Model.guidanceBehavior != null)
+{
+    <partial name="_AdminGuidanceBehavior" model="@Model.guidanceBehavior"/>
+}
+
+@if (Model.homeEnvironment != null)
+{
+    <partial name="_AdminHomeEnvironment" model="@Model.homeEnvironment"/>
+}

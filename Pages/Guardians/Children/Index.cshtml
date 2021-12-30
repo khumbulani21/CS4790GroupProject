@@ -1,0 +1,66 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.Children.IndexModel
+@{ ViewData["Title"] = "Children"; }
+<div class="container font-1-13">
+    <div class="col-12" style="height: 500px;">
+        <fieldset>
+            <legend class="color-1 xxlarge">Manage Children</legend>
+            <div class="col-12 pb-2">
+                <a asp-page="/Guardians/Children/Upsert" asp-route-ChildID="0" asp-route-GuardianID="@Model.currentGuardian.Id"><i class="fi-plus success-color"></i> Add Child</a>
+            </div>
+            <table class="table-sm shadow">
+                <thead class="p-0 border-0 text-center">
+                    <tr class="bg-color-1">
+                        <th scope="col" class="text-white">Child's Name</th>
+                        <th scope="col" class="text-center text-white">Age</th>
+                        <th scope="col" class="text-center text-white">Gender</th>
+                        <th scope="col" class="text-center text-white">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="border-0 m-0">
+                    @foreach (var child in Model.childrenList)
+                    {
+                        var birthday = child.ChildDOB;
+                        var age = DateTime.Today.Year - birthday.Year;
+
+        <tr class="medium">
+            <th scope="row">@Html.DisplayFor(item => child.FullName)</th>
+            <th scope="row" class="text-center">@age yrs</th>
+            <th scope="row" class="text-center">@Html.DisplayFor(item => child.ChildGender)</th>
+            <th scope="row" class="text-center pb-0 pt-2">
+                <a asp-page="/Guardians/Children/Upsert" asp-route-ChildID="@child.ChildID"
+                   asp-route-GuardianID="@Model.currentGuardian.Id" class="button tiny shadow">EDIT</a>
+                <button class="button tiny shadow alert">DELETE</button>
+            </th>
+        </tr>}
+
+                </tbody>
+            </table>
+        </fieldset>
+
+
+    </div>
+    @*<h3>
+            Children
+            <span class="float-right">
+                <a asp-page="Upsert" asp-route-ChildID="0"
+                   asp-route-GuardianID="@Model.currentGuardian.Id"><i class="fi-plus success-color">‌</i></a>
+            </span>
+        </h3>
+        @if (Model.hasChild)
+        {
+            @foreach (var child in Model.childrenList)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        @child.ChildFirst @child.ChildLast
+                        <span class="float-right">
+                            <a asp-page="Upsert" asp-route-ChildID="@child.ChildID"
+                               asp-route-GuardianID="@Model.currentGuardian.Id"><i class="fi-page-edit warning-color">‌</i></a>
+                        </span>
+                    </div>
+                </div>
+            }
+        }*@
+
+</div>

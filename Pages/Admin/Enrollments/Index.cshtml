@@ -1,0 +1,54 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Enrollments.IndexModel
+ 
+@{
+    ViewData["Title"] = "Enrollments";
+}
+<div class="border backgroundWhite container">
+    <br />
+    <h3>
+        Enrollments
+        <span class="float-right">
+            <a   asp-page="/Admin/Enrollments/NewEnrollment"  ><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+
+    <div class="container">
+        
+
+        <table id="DT_load" class="table table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>First Name </th>
+                    <th>Last Name </th>
+                    <th>Gender</th>
+                    <th>Active</th>
+                    <th>Program</th>
+                    <th>Hour Block</th>
+                    <th>Semester</th>
+                    <th>View</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>First Name </th>
+                    <th>Last Name </th>
+                    <th>Gender</th>
+                    <th>Active</th>
+                    <th>Program</th>
+                    <th>Hour Block</th>
+                    <th>Semester</th>
+                    <th id="view">View</th>
+                    <th id="delete">Delete</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/admin/enrollments.js"></script>
+
+}
+

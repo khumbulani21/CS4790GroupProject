@@ -1,0 +1,24 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Semesters.IndexModel
+@{
+    ViewData["Title"] = "Semesters";
+}
+<div class="container">
+    <h3>
+        Semesters
+        <span class="float-right">
+            <a asp-page="Upsert" asp-route-SemesterID="0"><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+    @foreach (var semester in Model.Semesters)
+    {
+        <div class="card text-dark mb-3 rounded shadow-lg shadow">
+            <div class="card-header bg-color-5">
+                @semester.SemesterName
+                <span class="float-right">
+                    <a asp-page="Upsert" asp-route-SemesterID="@semester.SemesterID"><i class="fi-page-edit warning-color large">‌</i></a>
+                </span>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,155 @@
+﻿@page "{id}"
+@model CS4790GroupProject.Pages.Guardians.Forms.ChildHealthAssessmentFormModel
+@{
+
+}
+
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 color-1 m-2 text-center">
+            <h2>Child Health Assessment</h2>
+        </div>
+    </div>
+    <form method="post" class="border">
+        <div class="row form-group m-2">
+            <div class="col-12">
+                <b>Check All That Apply:</b><br />
+                Does your child have any known allergies or sensitivities to:
+            </div>
+        </div>
+        <input type="hidden" asp-for="@Model.application.ApplicationID" />
+        <div class="row m-4">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col" class="p-0">No</th>
+                        <th scope="col" class="p-0">Yes</th>
+                        <th scope="col">If Yes, please explain:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="formRow required">
+                        <td>Medication</td>
+                        <td>
+                            <input hidden asp-for="healthAssessment.Medications" class="formValue" />
+                            <input class="formRadio" name="meds" data-type="No" type="radio" value="No" checked />
+                        </td>
+                        <td><input class="formRadio" name="meds" data-type="Yes" type="radio" value="Yes" /></td>
+                        <td><input type="text" class="formText" data-type="Text" style="display:none;" /></td>
+                    </tr>
+                    <tr class="formRow">
+                        <td>Foods</td>
+                        <td>
+                            <input hidden asp-for="healthAssessment.Foods" class="formValue" />
+                            <input class="formRadio" name="food" data-type="No" type="radio" value="No" checked />
+                        </td>
+                        <td><input class="formRadio" name="food" data-type="Yes" type="radio" value="Yes" /></td>
+                        <td><input type="text" class="formText" data-type="Text" style="display:none;" /></td>
+                    </tr>
+                    <tr class="formRow">
+                        <td>Other</td>
+                        <td>
+                            <input hidden asp-for="healthAssessment.OtherAllergy" class="formValue" />
+                            <input class="formRadio" name="otherallergy" data-type="No" type="radio" value="No" checked />
+                        </td>
+                        <td><input class="formRadio" name="otherallergy" data-type="Yes" type="radio" value="Yes" /></td>
+                        <td><input type="text" class="formText" id="other" data-type="Text" style="display:none;" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <b>Illnesses or Medical Conditions:</b><br />
+                Does your child have any of the following conditions:
+            </div>
+        </div>
+        <div class="row form-group m-4">
+            <table class="table-borderless table-sm unstriped border-0">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col">Condition</th>
+                        <th scope="col" class="">No</th>
+                        <th scope="col" class="">Yes</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Asthma</td>
+                        <td><input asp-for="@Model.healthAssessment.Asthma" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.Asthma" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Diabetes</td>
+                        <td><input asp-for="@Model.healthAssessment.Diabetes" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.Diabetes" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Seizures</td>
+                        <td><input asp-for="@Model.healthAssessment.Seizures" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.Seizures" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Heart Problems</td>
+                        <td><input asp-for="@Model.healthAssessment.HeartProblems" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.HeartProblems" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Hearing Impairment</td>
+                        <td><input asp-for="@Model.healthAssessment.HearingImpairment" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.HearingImpairment" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Visual Impairment</td>
+                        <td><input asp-for="@Model.healthAssessment.VisualImpairment" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.VisualImpairment" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Developmental Delays</td>
+                        <td><input asp-for="@Model.healthAssessment.DevelopmentalDelays" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.DevelopmentalDelays" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Physical Impairment</td>
+                        <td><input asp-for="@Model.healthAssessment.PhysicalImpairment" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.PhysicalImpairment" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Behavioral or Emotional Problems</td>
+                        <td><input asp-for="@Model.healthAssessment.BehavioralEmotionalProblems" type="radio" checked value="No" /></td>
+                        <td><input asp-for="@Model.healthAssessment.BehavioralEmotionalProblems" type="radio" value="Yes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Other<input asp-for="@Model.healthAssessment.OtherMedical" type="text" /></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                List and additional health information or special instructions you feel we need to be aware of:
+                <textarea asp-for="@Model.healthAssessment.AdditionalorSpecialInstructrions" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                List any regular medications your child takes:
+                <textarea asp-for="@Model.healthAssessment.regularMedications" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                Name of Child's Medical Provider':
+                <textarea required asp-for="@Model.healthAssessment.NameOfMedicalProvider" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

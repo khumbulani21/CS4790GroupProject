@@ -1,0 +1,29 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Guardians.IndexModel
+@{
+    ViewData["Title"] = "Guardians";
+}
+<div class="container">
+    <h3>
+        Guardians &amp; Children
+    </h3>
+    <table id="Guardians_DT" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Children
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+@section Scripts
+{ 
+    <script src="~/js/admin/guardian.js"></script>
+}

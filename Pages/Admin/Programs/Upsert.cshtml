@@ -1,0 +1,49 @@
+﻿@page "{ProgramID}"
+@model CS4790GroupProject.Pages.Admin.Programs.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.Program.ProgramID == 0 ? "Create" : "Update") Program</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="@Model.Program.ProgramID"/>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Program.ProgramName"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="Program.ProgramName" />
+                <span class="text-danger" asp-validation-for="Program.ProgramName"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Program.ProgramDescription"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="Program.ProgramDescription" />
+                <span class="text-danger" asp-validation-for="Program.ProgramDescription"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Program.ProgramCapacity"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="Program.ProgramCapacity" />
+                <span class="text-danger" asp-validation-for="Program.ProgramCapacity"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Program.RequiredAge"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="Program.RequiredAge" />
+                <span class="text-danger" asp-validation-for="Program.RequiredAge"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

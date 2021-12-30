@@ -1,0 +1,111 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Enrollments.NewEnrollmentModel
+@{
+}
+
+
+<form method="post" >
+    <div class="container">
+
+        <div class="row">
+            <!--Enrollment-->
+            <fieldset class=" col-md-5">
+                <legend class="color-1">Enrollment</legend>
+                <input id="applicationID" type="hidden" value="@Model.EnrollmentObj.Application.ApplicationID" />
+
+
+
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Child</span>
+                    </div>
+                    <div class="col-12">
+                        @*<input id="applicationID" type="hidden" value="@Model.EnrollmentObj.Application.ApplicationID" />*@
+                        @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.ApplicationID,
+                                                            Model.EnrollmentObj.ApplicationList,
+                                                            new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlApplication" })
+
+                        <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.ApplicationID"></span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Hour block</span>
+                    </div>
+                    <div class="col-12">
+                        <input id="hourBlock" type="hidden" value="@Model.EnrollmentObj.Enrollment.HourBlock" />
+                        @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.HourBlock,
+                                                            Model.EnrollmentObj.HourBlocks,
+                                                            new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlHourBlock" })
+
+                        <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.HourBlock"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Program</span>
+                    </div>
+                    <div class="col-12">
+                        <input id="programID" type="hidden" value="@Model.EnrollmentObj.Enrollment.ProgramID" />
+                        @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.ProgramID,
+                                                            Model.EnrollmentObj.ProgramList,
+
+                                                            new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlProgram" })
+                        <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.ProgramID"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Semester</span>
+                    </div>
+                    <div class="col-12">
+                        <input id="semID" type="hidden" value="@Model.EnrollmentObj.Enrollment.SemesterID" />
+                        @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.SemesterID,
+                                                           Model.EnrollmentObj.SemesterList,
+
+                                                           new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlSemester" })
+                        <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.SemesterID"></span>
+                    </div>
+                </div>
+
+
+            </fieldset>
+         
+            <!--Actions-->
+            <fieldset class="  col-md-11">
+                <legend class="color-1">Actions</legend>
+                <br />
+                <br />
+                <div class="row mb-2 float-center">
+                    <div class="col-12">
+                        <a href="/Admin/Enrollments/Index">Back to Enrollments</a>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+               
+                    <div class="row mb-2 float-center">
+
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success btn-block " id="btnCreate" asp-page-handler="Create" asp-route-applicationID="@Model.EnrollmentObj.Enrollment.ApplicationID" disabled><i class="fas fa-lock"></i> Save</button>
+                        </div>
+
+                    </div>
+        
+
+            </fieldset>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/admin/enrollments.js"></script>
+}
+

@@ -1,0 +1,22 @@
+﻿@page "{PriceTypeID}"
+@model CS4790GroupProject.Pages.Admin.PriceTypes.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.PriceType.PriceTypeID == 0 ? "Create" : "Update") Price Type</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="PriceType.PriceTypeID" />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="PriceType.PriceTypeDescription"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="PriceType.PriceTypeDescription" />
+                <span class="text-danger" asp-validation-for="PriceType.PriceTypeDescription"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

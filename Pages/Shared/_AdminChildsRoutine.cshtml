@@ -1,0 +1,112 @@
+﻿@model ApplicationCore.Models.ChildsRoutine
+
+
+<div class="reveal modal-small" id="childRoutine" data-reveal>
+    <h2 class="border-bottom">Child's Routine</h2>
+    <div class="row">
+        <div class="col-12">
+            How does your child typically respond when being left in a new environment with unfamiliar caregivers?
+            <textarea disabled asp-for="@Model.newEnvironmentUnfamiliarCaregiver" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <tbody>
+                <tr class="formRow">
+                    <td>Do you have a transition routine to saying goodbye that helps the child adjust from being separated from you?</td>
+                    <td>
+                        <input type="text" disabled asp-for="@Model.routineForGoodbyes" class="formValue" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            How can the child’s teacher help them adjust to the new environment?
+            <textarea disabled asp-for="@Model.teacherHelpAdjust" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <label for="classifyeater">Would you classify your child as a ____eater?</label>
+
+        <select disabled required asp-for="@Model.typeOfEater">
+            <option value=""></option>
+            <option value="Good">Good</option>
+            <option value="Average">Average</option>
+            <option value="Poor/Picky">Poor/Picky</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            For which meal is the child hungriest?
+            <textarea disabled asp-for="@Model.mealChildIsHungriest" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <label for="childfeeding">Does your child feed themselves entirely or do they want to be fed by an adult?</label>
+
+        <select disabled required asp-for="@Model.canChildFeedThemselves">
+            <option value=""></option>
+            <option value="feed themselves">feed themselves</option>
+            <option value="fed by an adult">fed by an adult</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="childbathroom">Can the child decide when they need to go to the bathroom or do they need a reminder?</label>
+
+        <select disabled asp-for="@Model.bathroomReminder" required>
+            <option value=""></option>
+            <option value="feed themselves">decide when they need to go</option>
+            <option value="fed by an adult">need a reminder</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Please describe approximate typical times for the following daily routines:
+        </div>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <thead class="bg-color-5">
+                <tr>
+                    <th scope="col" class="text-center col-10">Routines</th>
+                    <th scope="col" class="text-center">Approximate Times</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label>Morning Wake‐up</label></td>
+                    <td><input asp-for="@Model.morningWakeUpTime" disabled type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Nap (begins)</label></td>
+                    <td><input asp-for="@Model.napBeginTime" disabled type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Nap (ends)</label></td>
+                    <td><input asp-for="@Model.napEndTime" disabled type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Bedtime</label></td>
+                    <td><input asp-for="@Model.bedtime" disabled type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Breakfast</label></td>
+                    <td><input asp-for="@Model.breakfastTime" disabled type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Lunch</label></td>
+                    <td><input asp-for="@Model.lunchTime" disabled type="text" /></td>
+                </tr>
+                <tr>
+                    <td><label>Dinner</label></td>
+                    <td><input asp-for="@Model.dinnerTime" disabled type="text" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

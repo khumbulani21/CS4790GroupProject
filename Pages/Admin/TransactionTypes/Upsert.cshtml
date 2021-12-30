@@ -1,0 +1,22 @@
+﻿@page "{TransactionTypeID}"
+@model CS4790GroupProject.Pages.Admin.TransactionTypes.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.TransactionType.TransTypeID == 0 ? "Create" : "Update") Transaction Type</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="TransactionType.TransTypeID" />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="TransactionType.TransTypeDescription"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="TransactionType.TransTypeDescription" />
+                <span class="text-danger" asp-validation-for="TransactionType.TransTypeDescription"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

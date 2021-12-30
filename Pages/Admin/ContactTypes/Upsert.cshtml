@@ -1,0 +1,22 @@
+﻿@page "{ContactTypeID}"
+@model CS4790GroupProject.Pages.Admin.ContactTypes.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.ContactType.ContactTypeID == 0 ? "Create" : "Update") Contact Type</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="ContactType.ContactTypeID"/>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ContactType.ContactTypeDescription"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="ContactType.ContactTypeDescription" />
+                <span class="text-danger" asp-validation-for="ContactType.ContactTypeDescription"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

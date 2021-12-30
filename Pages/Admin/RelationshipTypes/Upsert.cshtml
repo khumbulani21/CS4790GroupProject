@@ -1,0 +1,22 @@
+﻿@page "{RelationshipID}"
+@model CS4790GroupProject.Pages.Admin.RelationshipTypes.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.RelationshipType.RelationshipID == 0 ? "Create" : "Update") Relationship Type</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="RelationshipType.RelationshipID" />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="RelationshipType.RelationshipDescription"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="RelationshipType.RelationshipDescription" />
+                <span class="text-danger" asp-validation-for="RelationshipType.RelationshipDescription"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

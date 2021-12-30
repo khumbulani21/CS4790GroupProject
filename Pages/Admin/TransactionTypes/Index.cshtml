@@ -1,0 +1,24 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.TransactionTypes.IndexModel
+@{
+    ViewData["Title"] = "Transaction Types";
+}
+<div class="container">
+    <h3>
+        Transaction Types
+        <span class="float-right">
+            <a asp-page="Upsert" asp-route-TransactionTypeID="0"><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+    @foreach (var transactionType in Model.TransactionTypes)
+    {
+        <div class="card text-dark mb-3 rounded shadow-lg shadow">
+            <div class="card-header bg-color-5">
+                @transactionType.TransTypeDescription
+                <span class="float-right">
+                    <a asp-page="Upsert" asp-route-TransactionTypeID="@transactionType.TransTypeID"><i class="fi-page-edit warning-color large">‌</i></a>
+                </span>
+            </div>
+        </div>
+    }
+</div>

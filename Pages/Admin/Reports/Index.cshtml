@@ -1,0 +1,39 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Reports.IndexModel
+@{
+    ViewData["Title"] = "Reports";
+}
+<div class="border backgroundWhite container">
+    <br />
+    <h3>
+        Programs
+    </h3>
+
+    <div class="container">
+
+
+        <table id="DT_load" class="table table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Program </th>
+                    <th>Semester </th>
+                    <th>Program Analytics</th>
+                    <th>Food Analytics</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Program </th>
+                    <th>Semester </th>
+                    <th id="programReport">Program Analytics</th>
+                    <th id="foodReport">Food Analytics</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/admin/programReport.js"></script>
+
+}

@@ -1,0 +1,111 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.ContactInfos.MedicalContactModel
+@{
+    ViewData["Title"] = "Medical Contact Method";
+}
+
+<div class="container font-1-13">
+    <fieldset>
+        <legend class="xxlarge color-1">Emergency Medical Contact Information</legend>
+        <form method="post" asp-action="Upsert">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Contact Method Information</legend>
+
+                        <input type="hidden" asp-for="@Model.CurrentChildID" />
+                        <input type="hidden" asp-for="@Model.CurrentASPGuardianID" />
+                        <input type="hidden" asp-for="@Model.CurrentEmergencyCardForm.EmergencyCardFormID" />
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <label asp-for="CurrentEmergencyCardForm.HospitalPreference"></label>
+                                <input class="form-control" asp-for="CurrentEmergencyCardForm.HospitalPreference" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.HospitalPreference"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <label asp-for="CurrentEmergencyCardForm.Insurance"></label>
+                                <input class="form-control" asp-for="CurrentEmergencyCardForm.Insurance" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.Insurance"></span>
+                            </div>
+                        </div>
+
+                        <hr />
+                        <h2>Doctor Information</h2>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label asp-for="CurrentEmergencyCardForm.DoctorFirstName"></label>
+                                <input class="form-control" asp-for="CurrentEmergencyCardForm.DoctorFirstName" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.DoctorFirstName"></span>
+                            </div>
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <label asp-for="CurrentEmergencyCardForm.DoctorLastName"></label>
+                                <input class="form-control" asp-for="CurrentEmergencyCardForm.DoctorLastName" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.DoctorLastName"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-md-2 col-md-8">
+                                <label asp-for="CurrentEmergencyCardForm.DoctorPhoneNumber"></label>
+                                <input type="tel" class="form-control" asp-for="CurrentEmergencyCardForm.DoctorPhoneNumber" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.DoctorPhoneNumber"></span>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <h2>Dentist Information</h2>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label asp-for="CurrentEmergencyCardForm.DentistFirstName"></label>
+                                <input class="form-control" asp-for="CurrentEmergencyCardForm.DentistFirstName" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.DentistFirstName"></span>
+                            </div>
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <label asp-for="CurrentEmergencyCardForm.DentistLastName"></label>
+                                <input class="form-control" asp-for="CurrentEmergencyCardForm.DentistLastName" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.DentistLastName"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="offset-md-2 col-md-8">
+                                <label asp-for="CurrentEmergencyCardForm.DentistPhoneNumber"></label>
+                                <input type="tel" class="form-control" asp-for="CurrentEmergencyCardForm.DentistPhoneNumber" />
+                                <span class="text-danger" asp-validation-for="CurrentEmergencyCardForm.DentistPhoneNumber"></span>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="button large">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </fieldset>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

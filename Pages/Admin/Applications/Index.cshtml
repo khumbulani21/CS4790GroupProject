@@ -1,0 +1,58 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Applications.IndexModel
+@{
+    ViewData["Title"] = "Applications";
+}<div class="border backgroundWhite container">
+    <br />
+    <h3>
+        Applications
+    </h3>
+
+    <div class="container">
+        <div class="row px-2 mx-2 ">
+            <div class="col-3"> </div>
+
+            <div>
+                <select id="statusFilter" class="form-control">
+                    <option value="">Show All</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Denied">Denied</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Waitlist">Waitlist</option>
+                </select>
+            </div>
+            <div class="col-3">  </div>
+        </div>
+
+        <table id="DT_load" class="table table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th> Id</th>
+                    <th> Child First Name</th>
+                    <th>Child Last Name</th>
+                    <th>Program Name</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th> Id</th>
+                    <th> Child First Name</th>
+                    <th>Child Last Name</th>
+                    <th>Program Name</th>
+                    <th>Status</th>
+                    <th id="date">Date</th>
+                    <th id="view">View</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/admin/applicationUpdate.js"></script>
+
+}
+

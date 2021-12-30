@@ -1,0 +1,98 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Enrollments.MultipleEnrollmentsModel
+@{
+}
+<br />
+
+<form method="post">
+    <div class="container">
+        <h3>
+            Enroll all students in a program to another semester
+        </h3>
+        <div class="row">
+            <fieldset class=" col-md-5">
+                <legend class="color-1">Move From</legend>
+                <div class="row mb-2">
+                    <br />
+                    <br />
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Program</span>
+                    </div>
+                    <div class="col-12">
+
+                        @Html.DropDownListFor(e => e.EnrollmentObj.ProgramID,
+                                                            Model.EnrollmentObj.ProgramList,
+                                                            " -Please select a program- ",
+                                                            new { @class = "form-control", @id = "ddlProgram" })
+                        <span class="text-danger" asp-validation-for="EnrollmentObj.ProgramID"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Semester</span>
+                    </div>
+                    <div class="col-12">
+
+                        @Html.DropDownListFor(e => e.EnrollmentObj.SemesterID,
+                                                           Model.EnrollmentObj.SemesterList,
+                                                              " -Please select a Semester- ",
+                                                           new { @class = "form-control", @id = "ddlSemester" })
+                        <span class="text-danger" asp-validation-for="EnrollmentObj.SemesterID"></span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="offset-md-1 col-md-5">
+                <legend class="color-1">Move to</legend>
+                <br />
+                <br />
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Program</span>
+                    </div>
+                    <div class="col-12">
+
+                        @Html.DropDownListFor(e => e.ToEnrollmentObj.ProgramID,
+                                                            Model.ToEnrollmentObj.ProgramList,
+                                                               " -Please select a program- ",
+                                                            new { @class = "form-control", @id = "ddlProgram" })
+                        <span class="text-danger" asp-validation-for="ToEnrollmentObj.ProgramID"></span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Semester</span>
+                    </div>
+                    <div class="col-12">
+
+                        @Html.DropDownListFor(e => e.ToEnrollmentObj.SemesterID,
+                                                           Model.ToEnrollmentObj.SemesterList,
+                                                              " -Please select a program- ",
+                                                           new { @class = "form-control", @id = "ddlSemester" })
+                        <span class="text-danger" asp-validation-for="ToEnrollmentObj.SemesterID"></span>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <fieldset class="  col-md-11">
+            <legend class="color-1">Actions</legend>
+            <br />
+            <br />
+
+            <br />
+            <br />
+            <br />
+            <div class="row mb-2 float-center">
+                <div>
+                    <button type="submit" class="btn btn-success btn-block " id="btnCreate"> Save</button>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/admin/multipleEnrollments.js"></script>
+}

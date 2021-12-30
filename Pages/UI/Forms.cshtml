@@ -1,0 +1,291 @@
+﻿@page
+@model CS4790GroupProject.Pages.UI.FormsModel
+@{
+}
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 text-center h4">
+            Basic Foundation Form
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 color-1">
+            Guardian Information:
+        </div>
+    </div>
+    <form method="post" class="border">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-sm-12">
+                <fieldset>
+                    <legend class="color-1">Contact Info</legend>
+                    <label for="firstName" class="">First Name</label>
+                    <input type="text" id="firstName" />
+                    <label for="lastName" class="">Last Name</label>
+                    <input type="text" id="lastName" />
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="email">Email</label>
+                            <input type="email" />
+                        </div>
+                        <div class="col-6">
+                            <label for="phone">Phone #</label>
+                            <input type="tel" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-sm-12">
+                <fieldset>
+                    <legend class="color-1">Address</legend>
+                    <label>Address line 1</label>
+                    <input type="text" />
+                    <label>Address line 2</label>
+                    <input type="text" />
+                    <div class="row">
+                        <div class="col-4">
+                            <label>City</label>
+                            <input type="text" />
+                        </div>
+                        <div class="col-4">
+                            <label>State</label>
+                            <input type="text" />
+                        </div>
+                        <div class="col-4">
+                            <label>Zip</label>
+                            <input type="text" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6 offset-lg-3 col-sm-12">
+                <fieldset>
+                    <legend class="color-1">Employment/Education</legend>
+                    <label>Occupation</label>
+                    <input type="text" />
+                    <label>Employer</label>
+                    <input type="text" />
+                    <div class="row">
+                        <div class="col-6">
+                            <label>Weekly Hours Worked</label>
+                            <input type="text" />
+                        </div>
+                        <div class="col-6">
+                            <label>Years Of Education</label>
+                            <input type="text" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--Next Example-->
+<hr />
+<div class="row" style="background-color: black; height:8px;">
+
+</div>
+<hr />
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 text-center h4">
+            Bootstrap Influenced Forms
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 color-1">
+            Child Information
+        </div>
+    </div>
+    <form method="post" class="border form-group">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-sm-12 mt-3">
+                <div class="input-group">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text bg-color-info text-color-2" id="">Child's Name</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="First">
+                    <input type="text" class="form-control" placeholder="Middle">
+                    <input type="text" class="form-control" placeholder="Last">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 offset-lg-1 col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text bg-color-5 text-color-2" id="">Date Of Birth</span>
+                    </div>
+                    <input type="date" class="form-control" placeholder="01/01/2001">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 offset-lg-1 col-sm-4">
+                <div class="input-group">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text bg-color-2 text-color-2" id="">Gender</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 offset-lg-1 col-sm-6">
+                <div class="input-group">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text bg-color-12 text-color-2" id="">UT Immunization ID#</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--Next Example-->
+<hr />
+<div class="container font-1-13">
+
+</div>
+<div class="row" style="background-color: black; height:8px;">
+
+</div>
+<hr />
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 color-1">
+            Child Health Assessment
+        </div>
+    </div>
+    <form method="post" class="border">
+        <div class="row form-group mt-3">
+            <div class="col-lg-6 col-sm-12">
+                <div class="form-floating">
+                    <select class="form-select" id="" aria-label="Floating">
+                        <option selected>Select a Child</option>
+                        <option value="1">Javier</option>
+                        <option value="2">Billy</option>
+                        <option value="3">Sarah</option>
+                    </select>
+                    <small class="form-text text-muted">Use a dropdown if we require Child to be created first</small>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-12">
+                <b>Check All That Apply:</b><br />
+                Does your child have any known allergies or sensitivies to:
+            </div>
+        </div>
+        <div class="row m-4">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col">Type</th>
+                        <th scope="col" class="p-0">No</th>
+                        <th scope="col" class="p-0">Yes</th>
+                        <th scope="col">If Yes, please explain:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Medication</td>
+                        <td><input type="radio" name="Meds" checked /></td>
+                        <td><input type="radio" name="Meds" /></td>
+                        <td><input type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td>Foods</td>
+                        <td><input type="radio" name="Foods" checked /></td>
+                        <td><input type="radio" name="Foods" /></td>
+                        <td><input type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td>Other</td>
+                        <td><input type="radio" name="Other" checked /></td>
+                        <td><input type="radio" name="Other" /></td>
+                        <td><input type="text" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <b>Illnesses or Medical Conditions:</b><br />
+                Does your child have any of the following conditions:
+            </div>
+        </div>
+        <div class="row form-group m-4">
+            <table class="table-borderless table-sm unstriped border-0">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col">Condition</th>
+                        <th scope="col" class="">No</th>
+                        <th scope="col" class="">Yes</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Behavioral or Emotional Problems</td>
+                        <td><input type="radio" name="BehaviorEmotion" checked /></td>
+                        <td><input type="radio" name="BehaviorEmotion" /></td>
+                    </tr>
+                    <tr>
+                        <td>Asthma</td>
+                        <td><input type="radio" name="Asthma" checked /></td>
+                        <td><input type="radio" name="Asthma" /></td>
+                    </tr>
+                    <tr>
+                        <td>Diabetes</td>
+                        <td><input type="radio" name="Diabetes" checked /></td>
+                        <td><input type="radio" name="Diabetes" /></td>
+                    </tr>
+                    <tr>
+                        <td>Seizures</td>
+                        <td><input type="radio" name="Seizures" checked /></td>
+                        <td><input type="radio" name="Seizures" /></td>
+                    </tr>
+                    <tr>
+                        <td>Heart Problems</td>
+                        <td><input type="radio" name="HeartProblems" checked /></td>
+                        <td><input type="radio" name="HeartProblems" /></td>
+                    </tr>
+                    <tr>
+                        <td>Hearing Impairment</td>
+                        <td><input type="radio" name="HearingImpairment" checked /></td>
+                        <td><input type="radio" name="HearingImpairment" /></td>
+                    </tr>
+                    <tr>
+                        <td>Other<input type="text" /></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                List and additional health information or special instructions you feel we need to be aware of:
+                <textarea rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,214 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.Addresses.IndexModel
+@{
+    ViewData["Title"] = "Guardian Info";
+}
+<div class="container font-1-13">
+    <fieldset>
+        <legend class="xxlarge color-1">Guardian Information</legend>
+        <form method="post" asp-action="Upsert">
+            <input type="hidden" asp-for="@Model.currentASPGuardian" />
+            <input type="hidden" asp-for="@Model.currentGuardian" />
+            <input type="hidden" asp-for="@Model.currentGuardian.GuardianFirst" />
+            <input type="hidden" asp-for="@Model.currentGuardian.GuardianLast" />
+            <input type="hidden" asp-for="@Model.currentGuardian.GuardianID" />
+            <input type="hidden" asp-for="@Model.currentGuardian.AddressID" />
+
+            <input type="hidden" asp-for="@Model.currentASPGuardian.Id" />
+
+            <input type="hidden" asp-for="@Model.currentAddress" />
+            <input type="hidden" asp-for="@Model.currentAddress.AddressID" />
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row ">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Personal Information</legend>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Phone #</label>
+                                <input type="text" asp-for="currentASPGuardian.PhoneNumber" />
+                                <span asp-validation-for="currentASPGuardian.PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+                                <label>Email</label>
+                                <input type="text" disabled asp-for="currentASPGuardian.Email" />
+                                <span asp-validation-for="currentASPGuardian.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Address</legend>
+                        <label>Address line 1</label>
+                        <input type="text" asp-for="currentAddress.AddressLine1" />
+                        <span asp-validation-for="currentAddress.AddressLine1" class="text-danger"></span>
+
+                        <label>Address line 2 (Optional)</label>
+                        <input type="text" asp-for="currentAddress.AddressLine2" />
+
+                        <div class="row">
+                            <div class="col-4">
+                                <label>City</label>
+                                <input type="text" asp-for="currentAddress.City" />
+                                <span asp-validation-for="currentAddress.City" class="text-danger"></span>
+                            </div>
+                            <div class="col-4">
+                                <label>State</label>
+                                <select id="state" asp-for="currentAddress.State">
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="DC">District Of Columbia</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                                <span asp-validation-for="currentAddress.State" class="text-danger"></span>
+                            </div>
+                            <div class="col-4">
+                                <label>Zip</label>
+                                <input type="text" asp-for="currentAddress.Zip" />
+                                <span asp-validation-for="currentAddress.Zip" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Relationship to Weber State</legend>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="weberrelationship">Relationship to Weber St.</label>
+                                <select asp-for="currentGuardian.WeberStateRelationship">
+                                    <option disabled value="">--</option>
+                                    @if (Model.currentGuardian.WeberStateRelationship == "Faculty")
+                                    {
+                                        <option selected value="Faculty">Faculty</option>
+                                        <option value="Staff">Staff</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Community">Community</option>
+                                    }
+                                    else if (Model.currentGuardian.WeberStateRelationship == "Staff")
+                                    {
+                                        <option value="Faculty">Faculty</option>
+                                        <option selected value="Staff">Staff</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Community">Community</option>
+                                    }
+                                    else if (Model.currentGuardian.WeberStateRelationship == "Student")
+                                    {
+                                        <option value="Faculty">Faculty</option>
+                                        <option value="Staff">Staff</option>
+                                        <option selected value="Student">Student</option>
+                                        <option value="Community">Community</option>
+                                    }
+                                    else if (Model.currentGuardian.WeberStateRelationship == "Community")
+                                    {
+                                        <option value="Faculty">Faculty</option>
+                                        <option value="Staff">Staff</option>
+                                        <option value="Student">Student</option>
+                                        <option selected value="Community">Community</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="currentGuardian.WeberStateRelationship" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+                                <label>Weber State W#</label>
+                                <input type="text" asp-for="currentASPGuardian.WeberNumber" />
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Additional Guardian Information</legend>
+                        <label>Occupation</label>
+                        <input type="text" asp-for="currentGuardian.Occupation" />
+                        <span asp-validation-for="currentGuardian.Occupation" class="text-danger"></span>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Employer</label>
+                                <input type="text" asp-for="currentGuardian.Employer" />
+                                <span asp-validation-for="currentGuardian.Employer" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+                                <label>Weekly Hours Worked</label>
+                                <input type="text" asp-for="currentGuardian.WeeklyHoursWorked" />
+                                <span asp-validation-for="currentGuardian.WeeklyHoursWorked" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label>Years Of Education</label>
+                            <input type="text" asp-for="currentGuardian.YearsOfEducation" />
+                            <span asp-validation-for="currentGuardian.YearsOfEducation" class="text-danger"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="button large">Update</button>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

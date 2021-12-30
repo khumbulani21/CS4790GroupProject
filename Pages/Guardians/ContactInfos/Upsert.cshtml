@@ -1,0 +1,395 @@
+﻿@page
+@using Infrastructure.Services
+@model CS4790GroupProject.Pages.Guardians.ContactInfos.UpsertModel
+@{
+    ViewData["Title"] = "Emergency Card Update";
+}
+<div class="container font-1-13">
+    <fieldset>
+        <legend class="xxlarge color-1">Emergency Card</legend>
+        <form method="post">
+
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="text" asp-for="@Model.currentChild" hidden />
+            <input type="text" asp-for="@Model.currentChildID" hidden />
+            <input type="text" asp-for="@Model.currentASPGuardianID" hidden />
+            <input type="text" asp-for="@Model.contactInfoPrimaryPhone.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.contactInfoPrimaryPhone.ContactID" hidden />
+            <input type="text" asp-for="@Model.contactInfoPrimaryEmail.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.contactInfoPrimaryEmail.ContactID" hidden />
+            <input type="text" asp-for="@Model.contactInfo1Guardian1.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.contactInfo1Guardian1.ContactID" hidden />
+            <input type="text" asp-for="@Model.contactInfo2Guardian1.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.contactInfo2Guardian1.ContactID" hidden />
+            <input type="text" asp-for="@Model.contactInfo1Guardian2.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.contactInfo1Guardian2.ContactID" hidden />
+            <input type="text" asp-for="@Model.contactInfo2Guardian2.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.contactInfo2Guardian2.ContactID" hidden />
+            <input type="text" asp-for="@Model.AuthorizedPickUpContactInfo1.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.AuthorizedPickUpContactInfo1.ContactID" hidden />
+            <input type="text" asp-for="@Model.AuthorizedPickUpContactInfo2.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.AuthorizedPickUpContactInfo2.ContactID" hidden />
+            <input type="text" asp-for="@Model.AlternativePickUpContactInfo1.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.AlternativePickUpContactInfo1.ContactID" hidden />
+            <input type="text" asp-for="@Model.AlternativePickUpContactInfo2.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.AlternativePickUpContactInfo2.ContactID" hidden />
+            <input type="text" asp-for="@Model.AuthorizedOOAContactInfo.ContactTypeID" hidden />
+            <input type="text" asp-for="@Model.AuthorizedOOAContactInfo.ContactID" hidden />
+            <input type="text" asp-for="@Model.DocContactID" hidden />
+            <input type="text" asp-for="@Model.DentistContactID" hidden />
+            <input type="text" asp-for="@Model.HospitalContactID" hidden />
+            <input type="text" asp-for="@Model.InsuranceContactID" hidden />
+
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Guardian Information</legend>
+
+
+                        <label>Child's Name</label>
+                        <input class="form-control" type="text" value="@Model.currentChild.ChildFirst @Model.currentChild.ChildLast" readonly />
+
+                        <label asp-for="contactInfoPrimaryPhone.ContactValue">Primary Phone</label>
+                        <input class="font-italic form-control" type="tel"
+                               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                               placeholder="123-456-7891"
+                               asp-for="contactInfoPrimaryPhone.ContactValue" />
+                        <span class="text-danger" asp-validation-for="contactInfoPrimaryPhone.ContactValue"></span>
+
+                        <label asp-for="contactInfoPrimaryEmail.ContactValue">Preferred Email Address</label>
+                        <input asp-for="contactInfoPrimaryEmail.ContactValue" type="email" />
+                        <span class="text-danger" asp-validation-for="contactInfoPrimaryEmail.ContactValue"></span>
+
+
+                        <label>1st Guardian</label>
+                        <div class="offset-1">
+                            <label asp-for="contactInfo1Guardian1.ContactFirst">First Name</label>
+                            <input type="text" asp-for="contactInfo1Guardian1.ContactFirst" />
+                            <span class="text-danger" asp-validation-for="contactInfo1Guardian1.ContactFirst"></span>
+
+                            <label asp-for="contactInfo1Guardian1.ContactLast">Last Name</label>
+                            <input type="text" asp-for="contactInfo1Guardian1.ContactLast" />
+                            <span class="text-danger" asp-validation-for="contactInfo1Guardian1.ContactLast"></span>
+
+                            <label asp-for="contactInfo1Guardian1.ContactValue">Cell Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891"
+                                   asp-for="contactInfo1Guardian1.ContactValue" />
+                            <span class="text-danger" asp-validation-for="contactInfo1Guardian1.ContactValue"></span>
+
+                            <label asp-for="contactInfo2Guardian1.ContactValue">Work Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891" asp-for="contactInfo2Guardian1.ContactValue" />
+                            <span class="text-danger" asp-validation-for="contactInfo2Guardian1.ContactValue"></span>
+                            @if (!Model.hasGuardian2)
+                            {
+                                <div class="text-center">
+                                    <a class="button medium" id="addSecondGuardianBtn" onclick="addSecondGuardian()">Add Second Guardian</a>
+                                </div>
+                            }
+
+                        </div>
+
+                        @if (!Model.hasGuardian2)
+                        {
+                            <div id="secondGuardian" style="display: none">
+                                <div class="row">
+                                    <p class="col-6">2nd Guardian</p>
+                                    <a class="btn btn-outline-danger offset-4 " id="removeSecondGuardianBtn" onclick="removeSecondGuardian()">X</a>
+                                </div>
+                                <div class="offset-1">
+                                    <label asp-for="contactInfo1Guardian2.ContactFirst">First Name</label>
+                                    <input type="text" asp-for="contactInfo1Guardian2.ContactFirst" />
+                                    <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactFirst"></span>
+
+                                    <label asp-for="contactInfo1Guardian2.ContactLast">Last Name</label>
+                                    <input type="text" asp-for="contactInfo1Guardian2.ContactLast" />
+                                    <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactLast"></span>
+
+                                    <label asp-for="contactInfo1Guardian2.ContactValue">Cell Phone</label>
+                                    <input class="font-italic form-control"
+                                           type="tel"
+                                           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                           placeholder="123-456-7891" asp-for="contactInfo1Guardian2.ContactValue" />
+                                    <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactValue"></span>
+
+                                    <label asp-for="contactInfo2Guardian2.ContactValue">Work Phone</label>
+                                    <input class="font-italic form-control"
+                                           type="tel"
+                                           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                           placeholder="123-456-7891" asp-for="contactInfo2Guardian2.ContactValue" />
+                                    <span class="text-danger" asp-validation-for="contactInfo2Guardian2.ContactValue"></span>
+
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div id="secondGuardian">
+                                <div class="row">
+                                    <p class="col-6">2nd Guardian</p>
+                                    <a class="btn btn-outline-danger offset-4 " id="removeSecondGuardianBtn" onclick="removeSecondGuardian()">X</a>
+                                </div>
+                                <div class="offset-1">
+                                    <label asp-for="contactInfo1Guardian2.ContactFirst">First Name</label>
+                                    <input type="text" asp-for="contactInfo1Guardian2.ContactFirst" />
+                                    <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactFirst"></span>
+
+                                    <label asp-for="contactInfo1Guardian2.ContactLast">Last Name</label>
+                                    <input type="text" asp-for="contactInfo1Guardian2.ContactLast" />
+                                    <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactLast"></span>
+
+                                    <label asp-for="contactInfo1Guardian2.ContactValue">Cell Phone</label>
+                                    <input class="font-italic form-control"
+                                           type="tel"
+                                           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                           placeholder="123-456-7891" asp-for="contactInfo1Guardian2.ContactValue" />
+                                    <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactValue"></span>
+
+                                    <label asp-for="contactInfo2Guardian2.ContactValue">Work Phone</label>
+                                    <input class="font-italic form-control"
+                                           type="tel"
+                                           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                           placeholder="123-456-7891" asp-for="contactInfo2Guardian2.ContactValue" />
+                                    <span class="text-danger" asp-validation-for="contactInfo2Guardian2.ContactValue"></span>
+
+                                </div>
+                            </div>
+                        }
+                        <div id="secondGuardian" style="display: none">
+                            <div class="row">
+                                <p class="col-6">2nd Guardian</p>
+                                <a class="btn btn-outline-danger offset-4 " id="removeSecondGuardianBtn" onclick="removeSecondGuardian()">X</a>
+                            </div>
+                            <div class="offset-1">
+                                <label asp-for="contactInfo1Guardian2.ContactFirst">First Name</label>
+                                <input type="text" asp-for="contactInfo1Guardian2.ContactFirst" />
+                                <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactFirst"></span>
+
+                                <label asp-for="contactInfo1Guardian2.ContactLast">Last Name</label>
+                                <input type="text" asp-for="contactInfo1Guardian2.ContactLast" />
+                                <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactLast"></span>
+
+                                <label asp-for="contactInfo1Guardian2.ContactValue">Cell Phone</label>
+                                <input class="font-italic form-control"
+                                       type="tel"
+                                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                       placeholder="123-456-7891" asp-for="contactInfo1Guardian2.ContactValue" />
+                                <span class="text-danger" asp-validation-for="contactInfo1Guardian2.ContactValue"></span>
+
+                                <label asp-for="contactInfo2Guardian2.ContactValue">Work Phone</label>
+                                <input class="font-italic form-control"
+                                       type="tel"
+                                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                       placeholder="123-456-7891" asp-for="contactInfo2Guardian2.ContactValue" />
+                                <span class="text-danger" asp-validation-for="contactInfo2Guardian2.ContactValue"></span>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Who is Authorized to Pick Up The Child</legend>
+                        <label>1.</label>
+                        <div class="offset-1">
+                            <label asp-for="AuthorizedPickUpContactInfo1.ContactFirst">First Name</label>
+                            <input type="text" asp-for="AuthorizedPickUpContactInfo1.ContactFirst" />
+                            <span class="text-danger" asp-validation-for="AuthorizedPickUpContactInfo1.ContactFirst"></span>
+
+                            <label asp-for="AuthorizedPickUpContactInfo1.ContactLast">Last Name</label>
+                            <input type="text" asp-for="AuthorizedPickUpContactInfo1.ContactLast" />
+                            <span class="text-danger" asp-validation-for="AuthorizedPickUpContactInfo1.ContactLast"></span>
+
+                            <label asp-for="AuthorizedPickUpContactInfo1.ContactValue">Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891" asp-for="AuthorizedPickUpContactInfo1.ContactValue" />
+                            <span class="text-danger" asp-validation-for="AuthorizedPickUpContactInfo1.ContactValue"></span>
+
+                            <label asp-for="Auth1RelationshipVal">Relationship</label>
+                            <select asp-for="Auth1RelationshipVal" asp-items="@SD.GuardianRelations"></select>
+                            <span class="text-danger" asp-validation-for="Auth1RelationshipVal"></span>
+                        </div>
+
+                        <label>2.</label>
+                        <div class="offset-1">
+                            <label asp-for="AuthorizedPickUpContactInfo2.ContactFirst">First Name</label>
+                            <input type="text" asp-for="AuthorizedPickUpContactInfo2.ContactFirst" />
+                            <span class="text-danger" asp-validation-for="AuthorizedPickUpContactInfo2.ContactFirst"></span>
+
+                            <label asp-for="AuthorizedPickUpContactInfo2.ContactLast">Last Name</label>
+                            <input type="text" asp-for="AuthorizedPickUpContactInfo2.ContactLast" />
+                            <span class="text-danger" asp-validation-for="AuthorizedPickUpContactInfo2.ContactLast"></span>
+
+                            <label asp-for="AuthorizedPickUpContactInfo2.ContactValue">Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891" asp-for="AuthorizedPickUpContactInfo2.ContactValue" />
+                            <span class="text-danger" asp-validation-for="AuthorizedPickUpContactInfo2.ContactValue"></span>
+
+                            <label asp-for="Auth2RelationshipVal">Relationship</label>
+                            <select asp-for="Auth2RelationshipVal" asp-items="@SD.GuardianRelations"></select>
+                            <span class="text-danger" asp-validation-for="Auth2RelationshipVal"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Local Alternative Authorized to Pick Up The Child (EMERGENCY)</legend>
+
+                        <label>1.</label>
+                        <div class="offset-1">
+                            <label asp-for="AlternativePickUpContactInfo1.ContactFirst">First Name</label>
+                            <input type="text" asp-for="AlternativePickUpContactInfo1.ContactFirst" />
+                            <span class="text-danger" asp-validation-for="AlternativePickUpContactInfo1.ContactFirst"></span>
+
+                            <label asp-for="AlternativePickUpContactInfo1.ContactLast">Last Name</label>
+                            <input type="text" asp-for="AlternativePickUpContactInfo1.ContactLast" />
+                            <span class="text-danger" asp-validation-for="AlternativePickUpContactInfo1.ContactLast"></span>
+
+                            <label asp-for="AlternativePickUpContactInfo1.ContactValue">Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891" asp-for="AlternativePickUpContactInfo1.ContactValue" />
+                            <span class="text-danger" asp-validation-for="AlternativePickUpContactInfo1.ContactValue"></span>
+
+                            <label asp-for="Alt1RelationshipVal">Relationship</label>
+                            <select asp-for="Alt1RelationshipVal" asp-items="@SD.GuardianRelations"></select>
+                            <span class="text-danger" asp-validation-for="Alt1RelationshipVal"></span>
+                        </div>
+
+                        <label>2.</label>
+                        <div class="offset-1">
+                            <label asp-for="AlternativePickUpContactInfo2.ContactFirst">First Name</label>
+                            <input type="text" asp-for="AlternativePickUpContactInfo2.ContactFirst" />
+                            <span class="text-danger" asp-validation-for="AlternativePickUpContactInfo2.ContactFirst"></span>
+
+                            <label asp-for="AlternativePickUpContactInfo2.ContactLast">Last Name</label>
+                            <input type="text" asp-for="AlternativePickUpContactInfo2.ContactLast" />
+                            <span class="text-danger" asp-validation-for="AlternativePickUpContactInfo2.ContactLast"></span>
+
+                            <label asp-for="AlternativePickUpContactInfo2.ContactValue">Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891" asp-for="AlternativePickUpContactInfo2.ContactValue" />
+                            <span class="text-danger" asp-validation-for="AlternativePickUpContactInfo2.ContactValue"></span>
+
+                            <label asp-for="Alt2RelationshipVal">Relationship</label>
+                            <select asp-for="Alt2RelationshipVal" asp-items="@SD.GuardianRelations"></select>
+                            <span class="text-danger" asp-validation-for="Alt2RelationshipVal"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Child's Medical Contact</legend>
+
+                        <div>
+                            <label asp-for="DocResponseVal">Doctor/Phone</label>
+                            <input type="text" asp-for="DocResponseVal" />
+                            <span class="text-danger" asp-validation-for="DocResponseVal"></span>
+
+                            <label asp-for="DentistResponseVal">Dentist/Phone</label>
+                            <input type="text" asp-for="DentistResponseVal" />
+                            <span class="text-danger" asp-validation-for="DentistResponseVal"></span>
+                        </div>
+                        <div>
+                            <label asp-for="HospitalResponseVal">Hospital Preference</label>
+                            <input type="text" asp-for="HospitalResponseVal" />
+                            <span class="text-danger" asp-validation-for="HospitalResponseVal"></span>
+
+                            <label asp-for="InsuranceResponseVal">Insurance</label>
+                            <input type="text" asp-for="InsuranceResponseVal" />
+                            <span class="text-danger" asp-validation-for="InsuranceResponseVal"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Out Of Area Alternative Authorized to Pick Up The Child in Case of DISASTER</legend>
+
+                        <div>
+                            <label asp-for="AuthorizedOOAContactInfo.ContactFirst">First Name</label>
+                            <input type="text" asp-for="AuthorizedOOAContactInfo.ContactFirst" />
+                            <span class="text-danger" asp-validation-for="AuthorizedOOAContactInfo.ContactFirst"></span>
+
+                            <label asp-for="AuthorizedOOAContactInfo.ContactLast">Last Name</label>
+                            <input type="text" asp-for="AuthorizedOOAContactInfo.ContactLast" />
+                            <span class="text-danger" asp-validation-for="AuthorizedOOAContactInfo.ContactLast"></span>
+
+                            <label asp-for="AuthorizedOOAContactInfo.ContactValue">Phone</label>
+                            <input class="font-italic form-control"
+                                   type="tel"
+                                   pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                   placeholder="123-456-7891" asp-for="AuthorizedOOAContactInfo.ContactValue" />
+                            <span class="text-danger" asp-validation-for="AuthorizedOOAContactInfo.ContactValue"></span>
+
+                            <label asp-for="AuthOOARelationshipVal">Relationship</label>
+                            <select asp-for="AuthOOARelationshipVal" asp-items="@SD.GuardianRelations"></select>
+                            <span class="text-danger" asp-validation-for="AuthOOARelationshipVal"></span>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row">
+                <p>
+                    I grant permission for the WSU Children’s School to take whatever steps may be necessary to obtain emergency medical
+                    care or to provide emergency transportation if warranted.
+                </p>
+            </div>
+
+            @*<div class="row">
+                    <label>Parent's/Guardian's Signature</label>
+                </div>*@
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="button large">Update</button>
+                </div>
+            </div>
+
+        </form>
+    </fieldset>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    function addSecondGuardian() {
+        document.getElementById("secondGuardian").style.display = "block";
+        document.getElementById("addSecondGuardianBtn").style.display = "none";
+    }
+    function removeSecondGuardian() {
+        document.getElementById("secondGuardian").style.display = "none";
+        document.getElementById("addSecondGuardianBtn").style.display = "inline";
+    }
+</script>
+

@@ -1,0 +1,16 @@
+@using Microsoft.AspNetCore.Identity
+@using ApplicationCore.Models
+@using Infrastructure.Services
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li role="menuitem">
+        <a asp-area="Identity" asp-page="/Account/Logout" target="_self" class="fancy-link">Logout</a>
+    </li>
+}
+else
+{
+    <a asp-page="/Index" class="fancy-link ">Login</a>
+}

@@ -1,0 +1,387 @@
+﻿@page
+@using Infrastructure.Services
+@model CS4790GroupProject.Pages.Guardians.ContactInfos.IndexModel
+@{
+    ViewData["Title"] = "Contacts";
+}
+<div class="container font-1-1">
+    <div class="row">
+        @*<div class="col-lg-2 d-none d-xl-block"></div>*@
+        <div class="col-lg-12 col-sm-12 mb-3">
+            <div class="row">
+                <h1>Emergency Contact Requirements</h1>
+            </div>
+            <hr />
+            <div class="row text-center">
+                @*<div class="text-center col-12 "><span class="font-weight-bold pt-1 pl-1 text-dark" id="progressText"></span></div>*@
+                <div class="text-center col-12 "><span class="font-weight-bold pt-1 pl-1 text-dark" id="progressText">PROGRESS: Complete @Model.StepAmount out of 4</span></div>
+            </div>
+            <div class="progress shadow row" style="height: 34px;">
+                @*<div class="progress-bar progress-bar-striped bg-color-1" id="progressBar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4">*@
+                <div style="width:@Model.ProgressAmountStr" class="progress-bar progress-bar-striped bg-color-1" id="progressBar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container w-75 font-1-13 border">
+    <div class="m-2 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <b>Primary Contact(s)</b><br />
+            </div>
+        </div>
+        <div class="">
+                <table class="table-borderless table-sm unstriped">
+                    <thead class="bg-color-5">
+                        <tr>
+                            <th scope="col" class="">Contact Name</th>
+                            <th scope="col" class="">Contact Value</th>
+                            <th scope="col">Actions</th>
+
+                            @if (Model.PrimaryContacts.Any())
+                            {
+                                //checked mark
+                                <th scope="col" class="float-right pr-2 pt-1 pr-2 pt-1 success-color">&#10003;</th>
+                            }
+                            else
+                            {
+                                //no entry
+                                <th scope="col" class="float-right pr-2 pt-1 m-2 alert-color">&#9940;</th>
+                            }
+
+                        </tr>
+                    </thead>
+                    @if (Model.PrimaryContacts.Any())
+                    {
+                    <tbody>
+
+                        @for (int i = 0; i < Model.PrimaryContacts.Count(); i++)
+                        {
+                            <tr class="formRow">
+                                <td>
+                                    @Model.PrimaryContacts.ElementAt(i).ContactFirst
+                                    @Model.PrimaryContacts.ElementAt(i).ContactLast
+                                </td>
+
+                                <td>
+                                    (@Model.PrimaryContacts.ElementAt(i).ContactValue)
+                                </td>
+
+
+                                <td>
+                                    <a asp-page="/Guardians/ContactInfos/UpdateContactMethod" asp-route-ContactID="@Model.PrimaryContacts.ElementAt(i).ContactID"
+                                       asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                                       class="button shadow bg-success tiny">Edit Contact Method</a>
+
+                                    <a asp-page="/Guardians/ContactInfos/DeleteContactMethod" asp-route-ContactID="@Model.PrimaryContacts.ElementAt(i).ContactID"
+                                       asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                                       class="button shadow bg-danger tiny">Delete Contact Method</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                    }
+                </table>
+
+        </div>
+    </div>
+
+    <div class="m-2 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <b>Contact(s) Authorized to Pick Up Child</b><br />
+            </div>
+        </div>
+
+        <div class="">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col" class="">Contact Name</th>
+                        <th scope="col" class="">Contact Value</th>
+                        <th scope="col">Actions</th>
+
+                        @if (Model.AuthorizedContactInfo.Any())
+                        {
+                            //checked mark
+                            <th scope="col" class="float-right pr-2 pt-1 pr-2 pt-1 success-color">&#10003;</th>
+                        }
+                        else
+                        {
+                            //no entry
+                            <th scope="col" class="float-right pr-2 pt-1 m-2 alert-color">&#9940;</th>
+                        }
+
+                    </tr>
+                </thead>
+            @if (Model.AuthorizedContactInfo.Any())
+            {
+                <tbody>
+                @for (int i = 0; i < Model.AuthorizedContactInfo.Count(); i++)
+                {
+                    <tr class="formRow">
+                        <td>
+                            @Model.AuthorizedContactInfo.ElementAt(i).ContactFirst
+                            @Model.AuthorizedContactInfo.ElementAt(i).ContactLast
+                        </td>
+
+                        <td>
+                            (@Model.AuthorizedContactInfo.ElementAt(i).ContactValue)
+
+                        </td>
+
+                        <td>
+                            <a asp-page="/Guardians/ContactInfos/UpdateContactMethod" asp-route-ContactID="@Model.AuthorizedContactInfo.ElementAt(i).ContactID"
+                               asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                               class="button shadow bg-success tiny">Edit Contact Method</a>
+
+                            <a asp-page="/Guardians/ContactInfos/DeleteContactMethod" asp-route-ContactID="@Model.AuthorizedContactInfo.ElementAt(i).ContactID"
+                               asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                               class="button shadow bg-danger tiny">Delete Contact Method</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            }
+            </table>
+
+
+        </div>
+
+    </div>
+
+    <div class="m-2 mb-5">
+        <div class="row">
+            <div class="col-12">
+                <b>Alternative Contact(s) to be Reached in Case of Disaster</b><br />
+            </div>
+        </div>
+
+        <div class="">
+                <table class="table-borderless table-sm unstriped">
+                    <thead class="bg-color-5">
+                        <tr>
+                            <th scope="col" class="">Contact Name</th>
+                            <th scope="col" class="">Contact Value</th>
+                            <th scope="col">Actions</th>
+
+                            @if (Model.OutofAreaContacts.Any())
+                            {
+                                //checked mark
+                                <th scope="col" class="float-right pr-2 pt-1 pr-2 pt-1 success-color">&#10003;</th>
+                            }
+                            else
+                            {
+                                //no entry
+                                <th scope="col" class="float-right pr-2 pt-1 m-2 alert-color">&#9940;</th>
+                            }
+
+                        </tr>
+                    </thead>
+            @if (Model.OutofAreaContacts.Any())
+            {
+                    <tbody>
+                        @for (int i = 0; i < Model.OutofAreaContacts.Count(); i++)
+                        {
+                            <tr class="formRow">
+                                <td>
+                                    @Model.OutofAreaContacts.ElementAt(i).ContactFirst
+                                    @Model.OutofAreaContacts.ElementAt(i).ContactLast
+
+                                </td>
+                                <td>
+                                    (@Model.OutofAreaContacts.ElementAt(i).ContactValue)
+                                </td>
+
+                                <td>
+                                    <a asp-page="/Guardians/ContactInfos/UpdateContactMethod" asp-route-ContactID="@Model.OutofAreaContacts.ElementAt(i).ContactID"
+                                       asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                                       class="button shadow bg-success tiny">Edit Contact Method</a>
+
+                                    <a asp-page="/Guardians/ContactInfos/DeleteContactMethod" asp-route-ContactID="@Model.OutofAreaContacts.ElementAt(i).ContactID"
+                                       asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                                       class="button shadow bg-danger tiny">Delete Contact Method</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+            }
+                </table>
+        </div>
+    </div>
+
+    @if (Model.OtherContacts.Any())
+    {
+<div class="m-2 mb-5">
+    <div class="row">
+        <div class="col-12">
+            <b>Addional Contact(s)OPTIONAL </b><br />
+        </div>
+    </div>
+    <div class="">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col" class="">Contact Type</th>
+                        <th scope="col" class="">Contact Value</th>
+
+                        @if (Model.OtherContacts.Any())
+                        {
+                            //checked mark
+                            <th scope="col" class="float-right pr-2 pt-1 pr-2 pt-1 success-color">&#10003;</th>
+                        }
+                        else
+                        {
+                            //no entry
+                            <th scope="col" class="float-right pr-2 pt-1 m-2 alert-color">&#9940;</th>
+                        }
+
+                    </tr>
+                </thead>
+        @if (Model.OtherContacts.Any())
+        {
+                <tbody>
+                    @for (int i = 0; i < Model.OtherContacts.Count(); i++)
+                    {
+                        <tr class="formRow">
+                            <td>
+                                @Model.OtherContacts.ElementAt(i).ContactFirst
+                                @Model.OtherContacts.ElementAt(i).ContactLast
+                            </td>
+
+                            <td>
+                                (@Model.OtherContacts.ElementAt(i).ContactValue)
+                            </td>
+
+                            <td>
+                                <a asp-page="/Guardians/ContactInfos/UpdateContactMethod" asp-route-ContactID="@Model.OtherContacts.ElementAt(i).ContactID"
+                                   asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                                   class="button tiny shadow bg-success">Edit Contact Method</a>
+                                <a asp-page="/Guardians/ContactInfos/DeleteContactMethod" asp-route-ContactID="@Model.OtherContacts.ElementAt(i).ContactID"
+                                   asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                                   class="button tiny shadow bg-danger">Delete Contact Method</a>
+                        </tr>
+                    }
+                </tbody>
+        }
+            </table>
+    </div>
+</div>
+    }
+<div class="m-2 mb-5">
+    <div class="row">
+        <div class="col-12">
+            <b>Medical Contact(s)</b><br />
+        </div>
+    </div>
+
+    <div class="">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col" class="">Contact Type</th>
+                        <th scope="col" class="">Contact Value</th>
+
+                        @if (Model.HasMedicalContact)
+                        {
+                            //checked mark
+                            <th scope="col" class="float-right pr-2 pt-1 pr-2 pt-1 success-color">&#10003;</th>
+                        }
+                        else
+                        {
+                            //no entry
+                            <th scope="col" class="float-right pr-2 pt-1 m-2 alert-color">&#9940;</th>
+                        }
+
+                    </tr>
+                </thead>
+        @if (Model.HasMedicalContact)
+        {
+                <tbody>
+                    <tr class="formRow">
+                        <td>
+                            <h4 class="font-weight-bold">Doctor Information:</h4>
+                        </td>
+
+                        <td>
+                            Dr. @Model.MedicalContacts.DoctorLastName
+                            @Model.MedicalContacts.DoctorFirstName
+                            Phone: @Model.MedicalContacts.DoctorPhoneNumber
+                        </td>
+                    </tr>
+
+                    <tr class="formRow">
+                        <td>
+                            <h4 class="font-weight-bold">Dentist Information:</h4>
+                        </td>
+
+                        <td>
+                            Dr. @Model.MedicalContacts.DentistLastName
+                            @Model.MedicalContacts.DentistFirstName
+                            Phone: @Model.MedicalContacts.DentistPhoneNumber
+                        </td>
+                    </tr>
+
+
+                    <tr class="formRow">
+                        <td>
+                            <h4 class="font-weight-bold">Insurance Information:</h4>
+                        </td>
+
+                        <td>
+                            @Model.MedicalContacts.Insurance
+                        </td>
+                    </tr>
+
+                    <tr class="formRow">
+                        <td>
+                            <h4 class="font-weight-bold">Hospital Preference Information:</h4>
+                        </td>
+
+                        <td>
+                            @Model.MedicalContacts.HospitalPreference
+                        </td>
+                    </tr>
+
+                </tbody>
+        }
+            </table>
+    </div>
+</div>
+
+    <p class="row color-1 bg-color-1 col-11 font-1-12">
+        I grant permission for the WSU Children’s School to take whatever steps may be necessary to obtain emergency medical
+        care or to provide emergency transportation if warranted.
+    </p>
+
+    <div class="m-2 mb-5">
+        <div class="row justify-content-center">
+            @if (@Model.HasMedicalContact)
+            {
+                <a asp-page="/Guardians/ContactInfos/MedicalContact" asp-route-ChildID="@Model.CurrentChildID"
+                   asp-route-GuardianID="@Model.CurrentASPGuardianID" class="button shadow bg-success m-2">Edit a Medical Contact Information!</a>
+            }
+            else
+            {
+                <a asp-page="/Guardians/ContactInfos/MedicalContact" asp-route-ChildID="@Model.CurrentChildID"
+                   asp-route-GuardianID="@Model.CurrentASPGuardianID" class="button shadow bg-success m-2">Add a Medical Contact Information!</a>
+            }
+
+            <a asp-page="/Guardians/ContactInfos/AddContactMethod" asp-route-ChildID="@Model.CurrentChildID"
+               asp-route-GuardianID="@Model.CurrentASPGuardianID" class="button shadow m-2">Add a New Contact Method!</a>
+        </div>
+    </div>
+
+</div>
+    <script>
+
+
+
+
+
+    </script>

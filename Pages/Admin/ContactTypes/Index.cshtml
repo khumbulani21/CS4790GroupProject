@@ -1,0 +1,25 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.ContactTypes.IndexModel
+@{
+    ViewData["Title"] = "Contact Types";
+}
+<div class="container">
+    <h3>
+        Contact Types
+        <span class="float-right">
+            <a asp-page="Upsert" asp-route-contacttypeid="0"><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+    
+    @foreach (var contactType in Model.ContactTypes)
+    {
+        <div class="card text-dark mb-3 rounded shadow-lg shadow">
+            <div class="card-header bg-color-5">
+                @contactType.ContactTypeDescription
+                <span class="float-right">
+                    <a asp-page="Upsert" asp-route-contacttypeid="@contactType.ContactTypeID"><i class="fi-page-edit warning-color large">‌</i></a>
+                </span>
+            </div>
+        </div>
+    }
+</div>

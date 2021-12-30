@@ -1,0 +1,44 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Employees.IndexModel
+@{
+    ViewData["Title"] = "Employees";
+}
+<div class="border backgroundWhite container">
+    <br />
+    <h3>
+        Employee List
+        <span class="float-right">
+            <a asp-area="Identity" asp-page="/Account/RegisterEmployee"><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+    <br /><br />
+
+    <table id="DT_load" class="table table table-striped table-bordered ">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                   Last Name
+                </th>
+                <th>
+                    User Name
+                </th>
+                <th>
+                    Role
+                </th>
+              <th>Lock/Unlock</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+
+    </table>
+</div>
+@section Scripts{
+    <script src="~/js/admin/employee.js"></script>
+}
+
+
+

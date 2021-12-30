@@ -1,0 +1,137 @@
+﻿@page "{id}"
+@model CS4790GroupProject.Pages.Guardians.Forms.ChildsRoutineModel
+@{
+}
+
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 color-1 m-2 text-center">
+            <h2>Family Information Form</h2>
+        </div>
+    </div>
+    <form method="post" class="border">
+        <div class="text-center bg-color-6">
+            <h4>Child's Routine</h4>
+        </div>
+        <input type="hidden" asp-for="@Model.application.ApplicationID" />
+        <div class="row">
+            <div class="col-12">
+                How does your child typically respond when being left in a new environment with unfamiliar caregivers?
+                <textarea asp-for="@Model.childsRoutine.newEnvironmentUnfamiliarCaregiver" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="row m-3">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col" class="">No</th>
+                        <th scope="col" class="">Yes</th>
+                        <th scope="col">If yes, please describe:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="formRow">
+                        <td>Do you have a transition routine to saying goodbye that helps the child adjust from being separated from you?</td>
+                        <td>
+                            <input hidden asp-for="childsRoutine.routineForGoodbyes" class="formValue" />
+                            <input class="formRadio" name="goodbyes" data-type="No" type="radio" value="No" checked />
+                        </td>
+                        <td><input class="formRadio" name="goodbyes" data-type="Yes" type="radio" value="Yes" /></td>
+                        <td><input type="text" class="formText" data-type="Text" style="display:none;" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                How can the child’s teacher help them adjust to the new environment?
+                <textarea asp-for="@Model.childsRoutine.teacherHelpAdjust" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row m-3">
+            <label for="classifyeater">Would you classify your child as a ____eater?</label>
+
+            <select required asp-for="@Model.childsRoutine.typeOfEater">
+                <option value=""></option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor/Picky">Poor/Picky</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                For which meal is the child hungriest?
+                <textarea asp-for="@Model.childsRoutine.mealChildIsHungriest" rows="1"></textarea>
+            </div>
+        </div>
+        <div class="row m-3">
+            <label for="childfeeding">Does your child feed themselves entirely or do they want to be fed by an adult?</label>
+
+            <select required asp-for="@Model.childsRoutine.canChildFeedThemselves">
+                <option value=""></option>
+                <option value="feed themselves">feed themselves</option>
+                <option value="fed by an adult">fed by an adult</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="childbathroom">Can the child decide when they need to go to the bathroom or do they need a reminder?</label>
+
+            <select asp-for="@Model.childsRoutine.bathroomReminder" required>
+                <option value=""></option>
+                <option value="feed themselves">decide when they need to go</option>
+                <option value="fed by an adult">need a reminder</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                Please describe approximate typical times for the following daily routines:
+            </div>
+        </div>
+        <div class="row m-3">
+            <table class="table-borderless table-sm unstriped">
+                <thead class="bg-color-5">
+                    <tr>
+                        <th scope="col" class="text-center col-10">Routines</th>
+                        <th scope="col" class="text-center">Approximate Times</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label>Morning Wake‐up</label></td>
+                        <td><input asp-for="@Model.childsRoutine.morningWakeUpTime" type="time" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Nap (begins)</label></td>
+                        <td><input asp-for="@Model.childsRoutine.napBeginTime" type="time" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Nap (ends)</label></td>
+                        <td><input asp-for="@Model.childsRoutine.napEndTime" type="time" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Bedtime</label></td>
+                        <td><input asp-for="@Model.childsRoutine.bedtime" type="time" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Breakfast</label></td>
+                        <td><input asp-for="@Model.childsRoutine.breakfastTime" type="time" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Lunch</label></td>
+                        <td><input asp-for="@Model.childsRoutine.lunchTime" type="time" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Dinner</label></td>
+                        <td><input asp-for="@Model.childsRoutine.dinnerTime" type="time" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

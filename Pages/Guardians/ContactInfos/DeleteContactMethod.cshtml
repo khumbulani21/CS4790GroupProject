@@ -1,0 +1,120 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.ContactInfos.DeleteContactMethodModel
+@{
+    ViewData["Title"] = "Delete Contact Method";
+}
+
+
+<div class="container font-1-13">
+    <fieldset>
+        <legend class="xxlarge color-1">Emergency Contact Information</legend>
+        <form method="post" asp-action="Upsert">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Contact Method Information</legend>
+
+                        <input type="hidden" asp-for="@Model.CurrentChildID" />
+                        <input type="hidden" asp-for="@Model.CurrentGuardianID" />
+                        <input type="hidden" asp-for="@Model.CurrentASPGuardianID" />
+                        <input type="hidden" asp-for="@Model.CurrentContactInfo.ContactID" />
+                        <input type="hidden" asp-for="@Model.CurrentContactType.ContactTypeID" />
+                        <input type="hidden" asp-for="@Model.CurrentAuthorizedToPickUp.AuthorizedToPickUpID" />
+                        <input type="hidden" asp-for="@Model.NewContactMethod" />
+
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label asp-for="CurrentContactInfo.ContactFirst"></label>
+                                <input readonly class="form-control" asp-for="CurrentContactInfo.ContactFirst" readonly />
+                                <span class="text-danger" asp-validation-for="CurrentContactInfo.ContactFirst"></span>
+                            </div>
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-5">
+                                <label asp-for="CurrentContactInfo.ContactLast"></label>
+                                <input readonly class="form-control" asp-for="CurrentContactInfo.ContactLast" />
+                                <span class="text-danger" asp-validation-for="CurrentContactInfo.ContactLast"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="CurrentContactInfo.ContactTypeID">Contact Value</label>
+                                <select asp-for="CurrentContactInfo.ContactTypeID" disabled>
+                                    <option disabled selected>Select a Contact Type...</option>
+                                    @for (int i = 0; i < Model.ContactTypes.Count(); i++)
+                                    {
+                                        <option value="@Model.ContactTypes.ElementAt(i).ContactTypeID">@Model.ContactTypes.ElementAt(i).ContactTypeDescription</option>
+                                    }
+                                </select>
+                                <span class="text-danger" asp-validation-for="CurrentContactInfo.ContactTypeID"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="CurrentContactInfo.ContactValue">Contact Value</label>
+                                <input readonly class="form-control" asp-for="CurrentContactInfo.ContactValue" />
+                                <span class="text-danger" asp-validation-for="CurrentContactInfo.ContactValue"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <label>Authorization to Pick Up Child</label>
+                                <select asp-for="AuthorizationValue" disabled>
+                                    <option disabled selected>Select a Authorization Type...</option>
+
+                                    <option value="false">This Contact is NOT Authorized to pick up Child</option>
+                                    <option value="true">This Contact is Authorized to pick up Child</option>
+                                </select>
+                                <span class="text-danger" asp-validation-for="AuthorizationValue"></span>
+                            </div>
+
+                            <div class="col-sm-12 col-md-9 offset-md-3">
+                                <input readonly disabled class="" asp-for="CurrentContactInfo.OutOfArea" />
+                                <label asp-for="CurrentContactInfo.OutOfArea">This Contact is an Out Of Area Contact</label>
+                                <span class="text-danger" asp-validation-for="CurrentContactInfo.OutOfArea"></span>
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-9 offset-md-3">
+                                <input readonly disabled class="" asp-for="CurrentContactInfo.PrimaryContact" />
+                                <label asp-for="CurrentContactInfo.PrimaryContact">Contact is a Primary Contact</label>
+                                <span class="text-danger" asp-validation-for="CurrentContactInfo.PrimaryContact"></span>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a asp-page="/Guardians/ContactInfos/Index" asp-route-ChildID="@Model.CurrentChildID"
+                       asp-route-GuardianID="@Model.CurrentASPGuardianID"
+                       class="button shadow bg-success">Do not remove thist Contact Method</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="button large bg-danger">Remove this Contact Method</button>
+                </div>
+            </div>
+
+
+        </form>
+    </fieldset>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

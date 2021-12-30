@@ -1,0 +1,36 @@
+﻿@page "{id}"
+@model CS4790GroupProject.Pages.Guardians.Forms.GoalsModel
+@{
+}
+
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 color-1 m-2 text-center">
+            <h2>Family Information Form</h2>
+        </div>
+    </div>
+    <form method="post" class="border">
+        <div class="text-center bg-color-6">
+            <h4>Goals of Child's Attendance at the Children's School</h4>
+        </div>
+        <input type="hidden" asp-for="@Model.application.ApplicationID" />
+        <div class="row">
+            <div class="col-12">
+                In what ways would you like to see your child develop during this next year in our program?
+                <textarea required asp-for="@Model.childGoals.childDevelopThisYear" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                Please add any additional comments which you feel will help us know your child and family better. Thank you
+                very much, we appreciate your help.
+                <textarea required asp-for="@Model.childGoals.additionalComments" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+﻿@page
+@model CS4790GroupProject.Pages.Employees.Programs.ProgramsModel
+ 
+ 
+@{
+    ViewData["Title"] = "Programs";
+}
+<div class="border backgroundWhite container">
+    <br />
+    <h3> Programs List</h3>
+    <br /><br />
+
+    <table id="DT_load" class="table table table-striped border ">
+        <thead>
+            <tr>
+
+                <th>
+                    Program Name
+                </th>
+                <th>
+                    Program description
+                </th>
+                <th>
+                    Program capacity
+                </th>
+                <th>
+                    Required age
+                </th>
+
+            </tr>
+        </thead>
+
+    </table>
+</div>
+@section Scripts{
+    <script src="~/js/admin/programs.js"></script>
+}
+
+
+

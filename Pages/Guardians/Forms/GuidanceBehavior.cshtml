@@ -1,0 +1,170 @@
+﻿@page "{id}"
+@model CS4790GroupProject.Pages.Guardians.Forms.GuidanceBehaviorModel
+@{
+}
+
+<div class="container font-1-13">
+    <div class="row">
+        <div class="col-12 color-1 m-2 text-center">
+            <h2>Family Information Form</h2>
+        </div>
+    </div>
+    <form method="post" class="border">
+        <div class="text-center bg-color-6">
+            <h4>Guidance and Behavior</h4>
+        </div>
+        <input type="hidden" asp-for="@Model.application.ApplicationID" />
+        <div class="row m-3">
+            <label for="management">Would you judge your child to be:</label>
+
+            <select required asp-for="guidanceBehavior.behaviorManagement">
+                <option value=""></option>
+                <option value="Easily Managed">Easily Managed</option>
+                <option value="Fairly Easy to Manage">Fairly Easy to Manage</option>
+                <option value="Difficult to Manage">Difficult to Manage</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="behavior">How many times within the past week have you had to re‐direct your child’s behavior?</label>
+
+            <select required asp-for="guidanceBehavior.weeklyBehaviorRedirection">
+                <option value=""></option>
+                <option value="0">0</option>
+                <option value="1-2">1-2</option>
+                <option value="3-4">3-4</option>
+                <option value="5-6">5-6</option>
+                <option value="7-8">7-8</option>
+                <option value="9">9</option>
+                <option value="10+">10+</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                Are there any special circumstances in the family which may be a factor in your child’s present behavior i.e.
+                divorce, death, new baby, recent move, hospitalization, etc. ? Please explain.
+                <textarea required asp-for="guidanceBehavior.behaviorFamilyCircumstances" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                What are the child’s strengths?
+                <textarea required asp-for="guidanceBehavior.childsStrengths" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                What concerns do you have about your child’s present behavior?
+                <textarea required asp-for="guidanceBehavior.currentConcernsBehavior" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                What are you doing about these concerns?
+                <textarea asp-for="guidanceBehavior.actionForConcerns" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                When your child has done something wrong, how often do you:
+            </div>
+        </div>
+        <div class="row m-3">
+            <label for="time-out">Use time‐out; make him/her stand or sit in a corner or chair</label>
+
+            <select required asp-for="guidanceBehavior.timeOut">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="room">Send your child to his/her room.</label>
+
+            <select required asp-for="guidanceBehavior.sendToRoom">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="privileges">
+                Take away privileges or object/toy for a period of time, restrict
+                access.
+            </label>
+
+            <select required asp-for="guidanceBehavior.losePrivileges">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="chores">Give extra chores</label>
+
+            <select required asp-for="guidanceBehavior.extraChores">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="attention">
+                Re‐direct, distract, or turn the child’s attention to something else.
+            </label>
+
+            <select required asp-for="guidanceBehavior.redirectToSomethingElse">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="discuss">
+                Discuss the problem, ask questions, and/or teach them.
+            </label>
+
+            <select required asp-for="guidanceBehavior.discussProblem">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row m-3">
+            <label for="Ignore">
+                Ignore it.
+            </label>
+
+            <select required asp-for="guidanceBehavior.ignoreIt">
+                <option value=""></option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button class="button large">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

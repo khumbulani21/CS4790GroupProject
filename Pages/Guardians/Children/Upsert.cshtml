@@ -1,0 +1,127 @@
+﻿@page "{ChildID}"
+@using Infrastructure.Services
+@model CS4790GroupProject.Pages.Guardians.Children.UpsertModel
+@{
+    ViewData["Title"] = "Child";
+}
+
+<div class="container font-1-13">
+    <fieldset>
+        <legend class="xxlarge color-1">@(Model.Child.ChildID == 0 ? "Add Your" : "Update Your") Child</legend>
+        @*<h2>@(Model.Child.ChildID == 0 ? "Add Your" : "Update Your") Child</h2>*@
+    <form method="post" asp-action="Upsert">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-sm-12">
+                <fieldset>
+                    <legend class="color-1">Child Info</legend>
+
+                    <input type="hidden" asp-for="Child.ChildID" />
+
+                    <input type="hidden" asp-for="@Model.currentGuardianID" />
+
+                    <input type="hidden" asp-for="@Model.relationshipType.RelationshipID" />
+
+                    <input type="hidden" asp-for="@Model.familyGroup.RelationshipID" />
+
+                    <input type="hidden" asp-for="@Model.familyGroup.GuardianID" />
+
+                    <input type="hidden" asp-for="@Model.familyGroup.ChildID" />
+
+
+                    <label asp-for="Child.ChildFirst"></label>
+                    <input class="form-control" asp-for="Child.ChildFirst" />
+                    <span class="text-danger" asp-validation-for="Child.ChildFirst"></span>
+
+                    <label asp-for="Child.ChildMiddle"></label>
+                    <input class="form-control" asp-for="Child.ChildMiddle" />
+                    <span class="text-danger" asp-validation-for="Child.ChildMiddle"></span>
+
+                    <label asp-for="Child.ChildLast"></label>
+                    <input class="form-control" asp-for="Child.ChildLast" />
+                    <span class="text-danger" asp-validation-for="Child.ChildLast"></span>
+
+                    @if (Model.Child.ChildID == 0)
+                    {
+                        <label asp-for="Child.ChildDOB"></label>
+                        <input class="form-control" asp-for="Child.ChildDOB" asp-format="mm/dd/yyyy" type="date" min="2015-12-31" max="@DateTime.Now.Year-@DateTime.Now.Month-31" />
+                        <span class="text-danger" asp-validation-for="Child.ChildDOB"></span>
+                    }
+                    else
+                    {
+                        <label asp-for="Child.ChildDOB"></label>
+                        <input class="form-control" asp-for="Child.ChildDOB" type="date" min="2015-12-31" max="@DateTime.Now.Year-@DateTime.Now.Month-31" />
+                        <span class="text-danger" asp-validation-for="Child.ChildDOB"></span>
+                    }
+
+
+
+                    <label asp-for="Child.ChildGender"></label>
+                    <select asp-for='@Model.Child.ChildGender' asp-items="@SD.Genders">
+                        <option disabled selected>Choose...</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Child.ChildGender"></span>
+
+                    <label asp-for="Child.ChildRace" data-toggle="tooltip" data-placement="top" title="Shared physical or social qualities into categories generally viewed distinct within a society.">
+                        Child's Race
+                        <span>&#x2139;</span>
+                    </label>
+                    <select asp-for='@Model.Child.ChildRace' asp-items="@SD.Race">
+                        <option disabled selected>Choose...</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Child.ChildRace"></span>
+
+                    <label asp-for="Child.ChildEthnicity" data-toggle="tooltip" data-placement="top" title="The fact or state of belonging to a social group that has a common national or cultural tradition.">
+                        Child's Ethnicity
+                        <span>&#x2139;</span>
+
+                    </label>
+                    <select asp-for='@Model.Child.ChildEthnicity' asp-items="@SD.Ethnicities">
+                        <option disabled selected>Choose...</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Child.ChildEthnicity"></span>
+
+                    <label asp-for="Child.ChildUtahImmuneID" data-toggle="tooltip" data-placement="top" title="The Utah Statewide Immunization Information System (USIIS) is a secure, confidential immunization information system that helps healthcare providers, schools, child care centers and Utah residents maintain consolidated immunization histories.">
+                        Child's Utah Immune ID
+                        <span>&#x2139;</span>
+                    </label>
+                    <input class="form-control" asp-for="Child.ChildUtahImmuneID" />
+
+
+                    <label asp-for="relationshipType.RelationshipDescription">Guardian's' Relationship to Child</label>
+                    <select asp-for='@Model.relationshipType.RelationshipDescription' asp-items="@SD.GuardianRelations">
+                        <option disabled selected>Choose...</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="relationshipType.RelationshipDescription"></span>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="submit" class="button large">Submit</button>
+            </div>
+        </div>
+
+    </form>
+    </fieldset>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script>
+    function addSecondCM() {
+        document.getElementById("secondCM").style.display = "block";
+        document.getElementById("addCM2Container").style.display = "none";
+    }
+
+    function addThirdCM() {
+        document.getElementById("thirdCM").style.display = "block";
+        document.getElementById("addCM3Container").style.display = "none";
+    }
+
+</script>
+

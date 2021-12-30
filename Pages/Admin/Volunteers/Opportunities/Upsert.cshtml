@@ -1,0 +1,22 @@
+﻿@page "{OpportunityID}"
+@model CS4790GroupProject.Pages.Admin.Volunteers.Opportunities.UpsertModel
+@{
+}
+<div class="container">
+    <h2>@(Model.Opportunity.VolunteerOpID == 0 ? "Create" : "Update") Volunteer Opportunity</h2>
+    <form method="post" asp-action="Upsert">
+        <input type="hidden" asp-for="Opportunity.VolunteerOpID" />
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Opportunity.VolunteerOpDescription"></label>
+            </div>
+            <div class="col-9">
+                <input class="form-control" asp-for="Opportunity.VolunteerOpDescription" />
+                <span class="text-danger" asp-validation-for="Opportunity.VolunteerOpDescription"></span>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>

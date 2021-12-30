@@ -1,0 +1,187 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.AdminIndexModel
+<link rel="stylesheet" href="~/css/tabs.css" />
+
+<div class="row container pt-2 pl-lg-5 pr-lg-5">
+    <div class="col-lg-1 d-none d-xl-block"></div>
+    <div class="col-lg-10 col-sm-12" id="main-tabs">
+        <ul id="tabs" class="nav nav-tabs m-0" role="tablist">
+            <li class="nav-item">
+                <a id="tab-A" href="#pane-A" class="child-tab nav-link active" data-toggle="tab">Absences</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-B" href="#pane-B" class="child-tab nav-link" data-toggle="tab" role="tab">Pending Applications</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-C" href="#pane-C" class="child-tab nav-link" data-toggle="tab" role="tab">Program Applications</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-D" href="#pane-D" class="child-tab nav-link" data-toggle="tab" role="tab">Child Notes</a>
+            </li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                <div class="card-header" role="tab" id="heading-A">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">
+                            Recent Absences
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-A" class="collapse border-0 m-0 rounded-right rounded-bottom" data-parent="#content" role="tabpanel" aria-labelledby="heading-A">
+                    <div class="card-body pt-3 rounded-right rounded-bottom font-1-2" style="background-color: #f9f2ff">
+                        @if (Model.Absenses != null && Model.Absenses.Any())
+                        {
+                            foreach (var dayOfAbsence in Model.Absenses)
+                            {
+                                var programsInDay = dayOfAbsence.Children.Select(x => x.Program).Distinct();
+                                <div class="row rounded mb-3">
+                                    <div class="col-12">
+                                        <h3>@dayOfAbsence.Date</h3>
+                                    </div>
+                                    @foreach (var program in programsInDay)
+                                    {
+                                        <div class="col-12">
+                                            <h5>@program.ProgramName</h5>
+                                        </div>
+                                        <div class="col-12">
+                                            @foreach (var child in dayOfAbsence.Children.Where(i => i.ProgramID == program.ProgramID))
+                                            {
+                                                <span class="pl-3 info-text"><a asp-page="/Admin/Child/View" asp-route-childid="@child.Application.Child.ChildID">@child.Application.Child.FullName <i class="fi-arrow-right">‌</i></a></span>
+                                            }
+
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row rounded">
+                                <span>No recent absences</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div id="pane-B" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-B">
+                <div class="card-header" role="tab" id="heading-B">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#collapse-B" aria-expanded="true" aria-controls="collapse-B">
+                            Recent Absences
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-B" class="collapse border-0 m-0 rounded-right rounded-bottom" data-parent="#content" role="tabpanel" aria-labelledby="heading-B">
+                    <div class="card-body pt-3 rounded-right rounded-bottom font-1-2" style="background-color: #f9f2ff">
+                        @if (Model.Applications != null && Model.Applications.Any())
+                        {
+                            foreach (var application in Model.Applications)
+                            {
+                                <div class="row mb-2">
+                                    <div class="col-12">
+                                        <strong><a asp-page="/Admin/Applications/ApplicationInfo" asp-route-id="@application.ApplicationID">@application.Child.FullName <i class="fi-arrow-right">‌</i></a></strong>
+
+                                    </div>
+                                    <div class="col-12">
+                                        <span class="info-text pl-3">@application.Program.ProgramName</span>
+                                    </div>
+                                    @if (application.ModifiedDate != DateTime.MinValue)
+                                    {
+                                        <div class="col-12">
+                                            <span class="info-text pl-3">@application.ModifiedDate.ToShortDateString()</span>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <span>No pending applications!</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div id="pane-C" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-C">
+                <div class="card-header" role="tab" id="heading-C">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#collapse-C" aria-expanded="true" aria-controls="collapse-C">
+                            Statistics for program applications (pending/waitlisted)
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-C" class="collapse border-0 m-0 rounded-right rounded-bottom" data-parent="#content" role="tabpanel" aria-labelledby="heading-C">
+                    <div class="card-body pt-3 rounded-right rounded-bottom font-1-2" style="background-color: #f9f2ff">
+                        <h5><a href="/Admin/Applications">View Applications <i class="fi-arrow-right">‌</i></a></h5>
+                        @foreach (var program in Model.Programs)
+                        {
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <span class="info-text font-weight-bold">@program.Program.ProgramName</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3">Capacity: @program.Program.ProgramCapacity</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3">@program.PendingApplications Pending Applications</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3">@program.WaitlistedApplications Waitlisted Applications</span>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
+                <div id="pane-D" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-D">
+                    <div class="card-header" role="tab" id="heading-D">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" href="#collapse-D" aria-expanded="true" aria-controls="collapse-D">
+                                Recent Notes
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-D" class="collapse border-0 m-0 rounded-right rounded-bottom" data-parent="#content" role="tabpanel" aria-labelledby="heading-D">
+                        <div class="card-body pt-3 rounded-right rounded-bottom font-1-2" style="background-color: #f9f2ff">
+                            @if (Model.Notes != null && Model.Notes.Any())
+                            {
+                                foreach (var day in Model.Notes.Select(x => x.EnteredOn.Date).OrderByDescending(i => i))
+                                {
+                                    <h3>@day.ToShortDateString()</h3>
+                                    foreach (var note in Model.Notes.Where(i => i.EnteredOn.Date == day))
+                                    {
+                                        <div class="row border-bottom border-secondary mb-3 pb-2">
+                                            <h5><a asp-page="/Admin/Child/View" asp-route-childid="@note.Child.ChildID">@note.Child.FullName <i class="fi-arrow-right">‌</i></a></h5>
+                                            <div class="col-12">
+                                                @note.Note
+                                            </div>
+                                            <div class="col-12">
+                                                <strong>Visible To Guardian(s): </strong> @(note.IsPublic ? "Yes" : "No")
+                                            </div>
+                                            @if (!string.IsNullOrWhiteSpace(note.Image))
+                                            {
+                                                <div class="col-12">
+                                                    <h5>Image:</h5>
+                                                </div>
+                                                <div class="col-12">
+                                                    <img src="@note.Image" class="rounded" width="120" height="80" />
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <div class="row rounded">
+                                    <span>No recent absences</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

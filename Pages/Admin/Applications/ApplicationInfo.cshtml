@@ -1,0 +1,263 @@
+﻿@page
+@using Infrastructure.Services
+@model CS4790GroupProject.Pages.Admin.Applications.ApplicationInfoModel
+<!--TODO-->
+<!--add dropdowns for hour block and program-->
+<div class="container">
+
+    <div class="row">
+        <!--Application-->
+        <fieldset class="col-md-5">
+            <legend class="color-1">Application</legend>
+
+            <div class="row mb-2">
+                <input id="applicationID" type="hidden" value="@Model.Application.ApplicationID" />
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Application ID</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Application.ApplicationID</span>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Requested Hours</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Application.RequestedHours</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Application status</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Application.ApplicationStatus</span>
+                </div>
+            </div>
+
+        </fieldset>
+        <!--Child-->
+        <fieldset class=" offset-md-1 col-md-5">
+            <legend class="color-1">Child information</legend>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Child full name</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Child.FullName</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Date of Birth</span>
+                </div>
+                <div class="col-12">
+
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Child.ChildDOB.ToShortDateString() </span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Age</span>
+                </div>
+                <div class="col-12">
+
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Age </span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Gender</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Child.ChildGender</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Immune Id</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Child.ChildUtahImmuneID</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Child status</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Child.ChildStatus</span>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+    </div>
+    <div class="row">
+        <!--Program-->
+        <fieldset class=" col-md-5">
+
+            <legend class="color-1">Program</legend>
+            <input type="hidden" id="progID" name="progID" value=@Model.ApplicationInfoObj.Program>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Name</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Program.ProgramName</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Description</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Program.ProgramDescription</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Required Age</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Program.RequiredAge </span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Capacity</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.ApplicationInfoObj.Program.ProgramCapacity</span>
+                </div>
+            </div>
+
+        </fieldset>
+        <!--enrollments-->
+        <fieldset class="offset-md-1 col-md-5">
+            <legend class="color-1">Enrollments</legend>
+            @foreach (var enrollment in @Model.ApplicationInfoObj.Enrollments)
+            {
+                <span class="pl-3 info-text"><a asp-page="/Admin/Enrollments/Upsert" asp-route-enrollmentID="@enrollment.EnrollmentID" asp-route-applicationID="@enrollment.ApplicationID">@enrollment.Program.ProgramName @enrollment.HourBlock @enrollment.Semester.SemesterName <i class="fi-arrow-right">‌</i></a></span>
+                <br />
+            }
+        </fieldset>
+        <fieldset class=" col-md-11">
+            <legend class="color-1">Actions</legend>
+            <div class="row mb-2 float-center">
+                <div class="col-6">
+                    <a href="/Admin/Applications/Index">Back to Applications</a>
+                </div>
+            </div>
+            <form method="post" asp-action="Upsert">
+                <br />
+                <br />
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Number of Enrollments</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3" id="eCount">Select semester to see number of enrollments in program</span>
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Hour block</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="hourBlock" type="hidden" value="@Model.ApplicationInfoObj.Enrollment.HourBlock" />
+                            @Html.DropDownListFor(e => e.ApplicationInfoObj.Enrollment.HourBlock,
+                                                                Model.ApplicationInfoObj.HourBlocks,
+                                                                new { @onchange = "HourBlockChange()", @class = "form-control", @id = "ddlHourBlock" })
+
+                            <span class="text-danger" asp-validation-for="ApplicationInfoObj.Enrollment.HourBlock"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Program</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="programID" type="hidden" value="@Model.ApplicationInfoObj.Enrollment.ProgramID" />
+                            @Html.DropDownListFor(e => e.ApplicationInfoObj.Enrollment.ProgramID,
+                                                                Model.ApplicationInfoObj.ProgramList,
+                                                                new { @onchange = "ProgramChange()", @class = "form-control", @id = "ddlProgram" })
+                            <span class="text-danger" asp-validation-for="ApplicationInfoObj.Enrollment.ProgramID"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Semester</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="semesterID" type="hidden" value="@Model.ApplicationInfoObj.Enrollment.SemesterID" />
+                            @Html.DropDownListFor(e => e.ApplicationInfoObj.Enrollment.SemesterID,
+                                                               Model.ApplicationInfoObj.SemesterList,
+                                                               new { @onchange = "Get(this.value)", @class = "form-control", @id = "ddlSemester" })
+                            <span class="text-danger" asp-validation-for="ApplicationInfoObj.Enrollment.SemesterID"></span>
+                        </div>
+                    </div>
+                    @{
+                        if (Model.Application.ApplicationStatus == "Approved")
+                        {
+                            <div class="col-12">
+                                @*<button type="submit" class="btn btn-primary btn-block" id="btnWaitlist" hidden><i class="fas fa-lock"></i>  </button>*@
+                                <button type="submit" id="btnApprove" class="btn btn-success btn-block" asp-page-handler="Approve" asp-route-id="@Model.Application.ApplicationID" onclick="return ValidateInput()" disabled><i class="fas fa-lock"></i>Enroll</button>
+                            </div>
+
+
+
+                        }
+                        else
+                        {
+                            if (Model.Application.ApplicationStatus == "Waitlist")
+                                    {
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-success  btn-block" asp-page-handler="Approve" id="btnApprove" asp-route-id="@Model.Application.ApplicationID" onclick="return ValidateInput()" disabled><i class="fas fa-lock-open"></i> Enroll</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-danger btn-block" id="btnDeny" asp-page-handler="Deny" asp-route-id="@Model.Application.ApplicationID"><i class="fas fa-lock"></i> Deny</button>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-success  btn-block" asp-page-handler="Approve" id="btnApprove" asp-route-id="@Model.Application.ApplicationID" onclick="return ValidateInput()" disabled><i class="fas fa-lock-open"></i> Approve</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="submit" class="btn btn-primary btn-block" id="btnWaitlist" asp-page-handler="Waitlist" asp-route-id="@Model.Application.ApplicationID"><i class="fas fa-lock"></i> Waitlist</button>
+                                        </div>
+                                        if (Model.Application.ApplicationStatus == "Pending")
+                                        {
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-danger btn-block" id="btnDeny" asp-page-handler="Deny" asp-route-id="@Model.Application.ApplicationID"><i class="fas fa-lock"></i> Deny</button>
+                                            </div>
+                                        }
+                                    }
+                               
+                          
+
+                        }
+
+                    }
+                    </div>
+</form>
+            </fieldset>
+        </div>
+
+</div>
+@section Scripts{
+   
+    <script src="~/js/admin/enrollmentCount.js"></script>
+}
+

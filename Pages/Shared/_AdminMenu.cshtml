@@ -1,0 +1,136 @@
+﻿@using Infrastructure.Services
+<section class="dropdown-nav">
+    <nav id="navDropdown">
+        <div class="top-bar-holder">
+            <div Class="title-bar" data-responsive-toggle="main-menu" data-hide-for="xlarge">
+                <div Class="right">
+                    <Button type="button" data-toggle><img src="~/images/images/drilldown-menu.svg" alt="Navigation Menu"></Button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="top-bar-left" id="main-menu">
+                    <div class="top-bar-right">
+                        <ul Class="menu" id="drilldown-menu" data-auto-height="true" data-responsive-menu="drilldown xlarge-dropdown">
+                            @if (User.IsInRole(SD.AdminRole))
+                            {
+                                <li role="menuitem">
+                                    <a asp-page="/Admin/AdminIndex" target="_self"
+                                       class="fancy-link">Home</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li role="menuitem">
+                                    <a asp-page="/Admin/EmployeeIndex" target="_self"
+                                       class="fancy-link">Home</a>
+                                </li>
+                            }
+
+                            <li role="menuitem">
+                                <a asp-page="/Admin/Guardians/Index" target="_self"
+                                   class="fancy-link">Guardians &amp; Children</a>
+                            </li>
+
+                            @if (!User.IsInRole(SD.AdminRole))
+                            {
+                                <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                    <a asp-page="/Admin/Volunteers/Opportunities/Index" class="fancy-link">Volunteers</a>
+                                </li>
+                            }
+
+                            @if (User.IsInRole(SD.AdminRole))
+                            {
+                                <li role="menuitem">
+                                    <a asp-page="/Admin/Programs/Index" target="_self"
+                                       class="fancy-link">Programs</a>
+                                </li>
+                                <li role="menuitem">
+                                    <a asp-page="/Admin/Reports/Index" target="_self"
+                                       class="fancy-link">Program Analytics</a>
+                                </li>
+                                <li role="menuitem">
+                                    <a asp-page="/Admin/Employees/Index" target="_self"
+                                       class="fancy-link">Employees</a>
+                                </li>
+                                <li role="menuitem">
+                                    <a asp-page="/Admin/Applications/Index" target="_self"
+                                       class="fancy-link">Applications</a>
+                                </li>
+                                <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true"
+                                    aria-label="Manage">
+                                    <a class="fancy-link">Enrollments</a>
+                                    <ul class="submenu menu vertical is-dropdown-submenu first-sub" data-submenu=""
+                                        role="menubar">
+                                         <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/Enrollments/Index" target="_self"
+                                               class="fancy-link">Enrollments</a>
+                                        </li>
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/Enrollments/MultipleEnrollments" target="_self"
+                                               class="fancy-link">Multiple Enrollments</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+
+
+
+
+                                <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true"
+                                    aria-label="Manage">
+                                    <a class="fancy-link">Manage Forms</a>
+                                    <ul class="submenu menu vertical is-dropdown-submenu first-sub" data-submenu=""
+                                        role="menubar">
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/TransactionTypes/Index" class="fancy-link">
+                                                Transaction Types
+                                            </a>
+                                        </li>
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/PriceTypes/Index" class="fancy-link">
+                                                Price Types
+                                            </a>
+                                        </li>
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/ContactTypes/Index"
+                                               class="fancy-link">Contact Types</a>
+                                        </li>
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/RelationshipTypes/Index"
+                                               class="fancy-link">Relationship Types</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li role="menuitem" class="is-dropdown-submenu-parent opens-left" aria-haspopup="true"
+                                    aria-label="Registration Setup">
+                                    <a class="fancy-link">Registration Setup</a>
+                                    <ul class="submenu menu vertical is-dropdown-submenu first-sub" data-submenu=""
+                                        role="menubar">
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/Semesters/Index"
+                                               class="fancy-link">Semesters</a>
+                                        </li>
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/Volunteers/Opportunities/Index" class="fancy-link">Volunteer Opportunities</a>
+                                        </li>
+                                        <li role="menuitem" class="is-submenu-item is-dropdown-submenu-item">
+                                            <a asp-page="/Admin/ProgramPricings/Index"
+                                               class="fancy-link">Program Pricing</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+
+                            <li>
+                                <a href="/About" target="_self" class="fancy-link">About</a>
+                            </li>
+                            <!--LoginPartial-->
+                            <partial name="_LoginPartial" />
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>

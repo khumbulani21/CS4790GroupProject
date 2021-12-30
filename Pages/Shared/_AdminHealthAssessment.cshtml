@@ -1,0 +1,127 @@
+﻿@model ApplicationCore.Models.HealthAssessment
+
+
+<div class="reveal modal-small" id="healthAssessment" data-reveal>
+    <h2 class="border-bottom">Child Health Assessment</h2>
+    <div class="row form-group m-2">
+        <div class="col-12">
+            <b>Known Allergies</b>
+        </div>
+    </div>
+    <div class="row m-4">
+        <table class="table-borderless table-sm unstriped">
+            <tbody>
+                <tr class="formRow required">
+                    <td>Medication</td>
+                    <td>
+                        <input disabled type="text" asp-for="@Model.Medications" />
+                    </td>
+                </tr>
+                <tr class="formRow">
+                    <td>Foods</td>
+                    <td>
+                        <input disabled type="text" asp-for="@Model.Foods" class="formValue" />
+                    </td>
+                </tr>
+                <tr class="formRow">
+                    <td>Other</td>
+                    <td>
+                        <input disabled type="text" asp-for="@Model.OtherAllergy" class="formValue" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <b>Illnesses or Medical Conditions:</b><br />
+            Does your child have any of the following conditions:
+        </div>
+    </div>
+    <div class="row form-group m-4">
+        <table class="table-borderless table-sm unstriped border-0">
+            <thead class="bg-color-5">
+                <tr>
+                    <th scope="col">Condition</th>
+                    <th scope="col" class="">No</th>
+                    <th scope="col" class="">Yes</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Asthma</td>
+                    <td><input disabled asp-for="@Model.Asthma" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.Asthma" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Diabetes</td>
+                    <td><input disabled asp-for="@Model.Diabetes" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.Diabetes" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Seizures</td>
+                    <td><input disabled asp-for="@Model.Seizures" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.Seizures" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Heart Problems</td>
+                    <td><input disabled asp-for="@Model.HeartProblems" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.HeartProblems" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Hearing Impairment</td>
+                    <td><input disabled asp-for="@Model.HearingImpairment" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.HearingImpairment" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Visual Impairment</td>
+                    <td><input disabled asp-for="@Model.VisualImpairment" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.VisualImpairment" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Developmental Delays</td>
+                    <td><input disabled asp-for="@Model.DevelopmentalDelays" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.DevelopmentalDelays" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Physical Impairment</td>
+                    <td><input disabled asp-for="@Model.PhysicalImpairment" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.PhysicalImpairment" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Behavioral or Emotional Problems</td>
+                    <td><input disabled asp-for="@Model.BehavioralEmotionalProblems" type="radio" checked value="No" /></td>
+                    <td><input disabled asp-for="@Model.BehavioralEmotionalProblems" type="radio" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>Other<input disabled asp-for="@Model.OtherMedical" type="text" /></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            List and additional health information or special instructions you feel we need to be aware of:
+            <textarea disabled asp-for="@Model.AdditionalorSpecialInstructrions" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            List any regular medications your child takes:
+            <textarea disabled asp-for="@Model.regularMedications" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Name of Child's Medical Provider':
+            <textarea disabled required asp-for="@Model.NameOfMedicalProvider" rows="2"></textarea>
+        </div>
+    </div>
+
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

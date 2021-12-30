@@ -1,0 +1,101 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.IndexModel
+@{
+}
+<div class="container">
+    <h2>Manage Attendance</h2>
+    <div class="row">
+        @foreach (var program in Model.Programs.OrderBy(i => i.ProgramName))
+        {
+
+            <div class="col-md-6">
+                <div class="card text-dark mb-3 rounded shadow-lg shadow">
+                    <div class="card-header bg-color-5">
+                        @program.ProgramName
+                        <div class="float-right">
+                            @program.Enrollments.Count() Enrolled
+                        </div>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="row">
+                            <div class="col-md-4 offset-md-4">
+                                <button class="button color-12" data-open="enrollmentsModal@(program.ProgramID)">Set Attendance</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal modal-small" id="enrollmentsModal@(program.ProgramID)" data-reveal>
+                <h2 class="border-bottom">Children for @program.ProgramName</h2>
+
+                @if (program.Enrollments.Any())
+                {
+                    <table class="table table-borderless">
+                        @foreach (var enrollment in program.Enrollments)
+                        {
+                            <tr class="row">
+                                <td class="col-md-4">@enrollment.Application.Child.FullName</td>
+                                <td class="attendanceInfo col-md-4">
+                                    @if (enrollment.Attendances != null && enrollment.Attendances.Any())
+                                    {
+                                        @if (enrollment.Attendances.First().AttendOut.HasValue)
+                                        {
+                                            <span><strong>Checked In:</strong> @(enrollment.Attendances.First().AttendIn.ToString("hh:mm tt"))</span>
+                                            <br />
+                                            <span><strong>Checked Out:</strong> @(enrollment.Attendances.First().AttendOut.Value.ToString("hh:mm tt"))</span> <i class="fi-x-circle text-danger large pointer" onclick="VerifyCancel('CheckOut', this, @(enrollment.Attendances.First().AttendanceID))">‌</i>
+                                        }
+                                        else
+                                        {
+                                            <button class="button color-2" onclick="processCheckOut(this, @(enrollment.Attendances.First().AttendanceID))">Check Out</button>
+                                            <br />
+                                            <span><strong>Checked In:</strong> @enrollment.Attendances.First().AttendIn.ToString("hh:mm tt")</span> <i class="fi-x-circle text-danger large pointer" onclick="VerifyCancel('CheckIn', this, @(enrollment.Attendances.First().AttendanceID))">‌</i>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        <button class="button color-12" onclick="processCheckIn(this, @(enrollment.EnrollmentID))">Check In</button>
+                                    }
+                                </td>
+                                <td class="col-md-4 mealInfo">
+                                    @if (enrollment.Attendances != null && enrollment.Attendances.Any())
+                                    {
+                                        var attendance = @enrollment.Attendances.First();
+
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <strong>B</strong>
+                                                <br />
+                                                <input type="checkbox" onclick="UpdateMeal(this)" @(attendance.HadBreakfast ? "checked" : "") data-attendance-id="@attendance.AttendanceID" data-meal="Breakfast" />
+                                            </div>
+                                            <div class="col-4">
+                                                <strong>L</strong>
+                                                <br />
+                                                <input type="checkbox" onclick="UpdateMeal(this)" @(attendance.HadLunch ? "checked" : "") data-attendance-id="@attendance.AttendanceID" data-meal="Lunch" />
+                                            </div>
+                                            <div class="col-4">
+                                                <strong>S</strong>
+                                                <br />
+                                                <input type="checkbox" onclick="UpdateMeal(this)"  @(attendance.HadSnack ? "checked" : "") data-attendance-id="@attendance.AttendanceID" data-meal="Snack" />
+                                            </div>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                }
+                <button class="close-button" data-close aria-label="Close modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/admin//landingPage.js"></script>
+}

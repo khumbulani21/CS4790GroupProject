@@ -1,0 +1,24 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.PriceTypes.IndexModel
+@{
+    ViewData["Title"] = "Price Types";
+}
+<div class="container">
+    <h3>
+        Price Types
+        <span class="float-right">
+            <a asp-page="Upsert" asp-route-PriceTypeID="0"><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+    @foreach (var priceType in Model.PriceTypes)
+    {
+        <div class="card text-dark mb-3 rounded shadow-lg shadow">
+            <div class="card-header bg-color-5">
+                @priceType.PriceTypeDescription
+                <span class="float-right">
+                    <a asp-page="Upsert" asp-route-PriceTypeID="@priceType.PriceTypeID"><i class="fi-page-edit warning-color large">‌</i></a>
+                </span>
+            </div>
+        </div>
+    }
+</div>

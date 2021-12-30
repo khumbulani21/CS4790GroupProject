@@ -1,0 +1,514 @@
+﻿@model ApplicationCore.Models.HomeEnvironmentFamily
+
+<div class="reveal modal-small" id="homeEnvironment" data-reveal>
+    <h2 class="border-bottom">Home Environment</h2>
+    <div class="col-12 mb-5">
+        Understanding a child’s home environment can help teachers individualize teaching goals and strategies for that
+        child. Please help us better understand the child’s home environment by answering the following questions:
+    </div>
+    <div class="row m-3">
+        <label>Primary language spoken in the home: </label>
+
+        <select disabled asp-for="@Model.primaryLanguage">
+            <option value=""></option>
+            <option value="English">English</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Chinese (Mandarin)">Chinese (Mandarin)</option>
+            <option value="German">German</option>
+            <option value="Albanian">Albanian</option>
+            <option value="Arabic">Arabic</option>
+            <option value="Armenian">Armenian</option>
+            <option value="Basque">Basque</option>
+            <option value="Bengali">Bengali</option>
+            <option value="Bulgarian">Bulgarian</option>
+            <option value="Catalan">Catalan</option>
+            <option value="Cambodian">Cambodian</option>
+            <option value="Croatian">Croatian</option>
+            <option value="Czech">Czech</option>
+            <option value="Danish">Danish</option>
+            <option value="Dutch">Dutch</option>
+            <option value="Estonian">Estonian</option>
+            <option value="Fiji">Fiji</option>
+            <option value="Filipino">Filipino</option>
+            <option value="Finnish">Finnish</option>
+            <option value="French">French</option>
+            <option value="Georgian">Georgian</option>
+            <option value="Greek">Greek</option>
+            <option value="Gujarati">Gujarati</option>
+            <option value="Hebrew">Hebrew</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Hungarian">Hungarian</option>
+            <option value="Icelandic">Icelandic</option>
+            <option value="Indonesian">Indonesian</option>
+            <option value="Irish">Irish</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Javanese">Javanese</option>
+            <option value="Korean">Korean</option>
+            <option value="Latin">Latin</option>
+            <option value="Latvian">Latvian</option>
+            <option value="Lithuanian">Lithuanian</option>
+            <option value="Macedonian">Macedonian</option>
+            <option value="Malay">Malay</option>
+            <option value="Malayalam">Malayalam</option>
+            <option value="Maltese">Maltese</option>
+            <option value="Maori">Maori</option>
+            <option value="Marathi">Marathi</option>
+            <option value="Mongolian">Mongolian</option>
+            <option value="Nepali">Nepali</option>
+            <option value="Norwegian">Norwegian</option>
+            <option value="Persian">Persian</option>
+            <option value="Polish">Polish</option>
+            <option value="Portuguese">Portuguese</option>
+            <option value="Romanian">Romanian</option>
+            <option value="Russian">Russian</option>
+            <option value="Samoan">Samoan</option>
+            <option value="Serbian">Serbian</option>
+            <option value="Slovak">Slovak</option>
+            <option value="Slovenian">Slovenian</option>
+            <option value="Swahili">Swahili</option>
+            <option value="Swedish ">Swedish </option>
+            <option value="Tamil">Tamil</option>
+            <option value="Tatar">Tatar</option>
+            <option value="Telugu">Telugu</option>
+            <option value="Thai">Thai</option>
+            <option value="Tibetan">Tibetan</option>
+            <option value="Tonga">Tonga</option>
+            <option value="Turkish">Turkish</option>
+            <option value="Ukrainian">Ukrainian</option>
+            <option value="Urdu">Urdu</option>
+            <option value="Uzbek">Uzbek</option>
+            <option value="Vietnamese">Vietnamese</option>
+            <option value="Welsh">Welsh</option>
+            <option value="Xhosa">Xhosa</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <thead class="bg-color-5">
+                <tr>
+                    <th scope="col"> </th>
+                    <th scope="col" class="p-0">No</th>
+                    <th scope="col" class="p-0">Yes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>If other than English, will you need program materials translated?</td>
+                    <td><input disabled asp-for="@Model.needingTranslation" type="radio" value="No" checked /></td>
+                    <td><input disabled asp-for="@Model.needingTranslation" type="radio" value="Yes" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row m-3">
+        <label>What is your present religion, if any? (optional)</label>
+
+        <select disabled asp-for="@Model.religion">
+            <option value=""></option>
+            <option value="Protestant">Protestant</option>
+            <option value="Non-denominational Christian">Non-denominational Christian</option>
+            <option value="Catholic">Catholic</option>
+            <option value="Jehovah's Witness">Jehovah's Witness</option>
+            <option value="Church of Jesus Christ of Latter-day Saints">Church of Jesus Christ of Latter-day Saints</option>
+            <option value="Baptist">Baptist</option>
+            <option value="Judaism">Judaism</option>
+            <option value="Muslim">Muslim</option>
+            <option value="Hinduism">Hinduism</option>
+            <option value="Buddhism">Buddhism</option>
+            <option value="Agnostic">Agnostic</option>
+            <option value="Atheist">Atheist</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <tbody>
+                <tr class="formRow">
+                    <td>Is your child routinely cared for by any other adults?</td>
+                    <td>
+                        <input type="text" disabled asp-for="@Model.routinelyCaredForByOthers" class="formValue" />
+                    </td>
+                </tr>
+                <tr class="formRow">
+                    <td>Has the child experienced the prolonged absence of a primary caregiver?</td>
+                    <td>
+                        <input type="text" disabled asp-for="@Model.prolongedAbsencePrimaryCaregiver" class="formValue" />
+                    </td>
+                </tr>
+                <tr class="formRow">
+                    <td>Do you expect the child to experience a prolonged absence of a primary caregiver in the next year?</td>
+                    <td>
+                        <input type="text" disabled asp-for="@Model.upcomingProlongedAbsencePrimaryCaregiver" class="formValue" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            In how many different home settings has the child lived since birth?
+            <textarea disabled asp-for="@Model.differentHomeSettings" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            How many times has your child moved in the past year?
+            <textarea disabled asp-for="@Model.movedInPastYear" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <thead class="bg-color-5">
+                <tr>
+                    <th scope="col"> </th>
+                    <th scope="col" class="">No</th>
+                    <th scope="col" class="ml-2">Yes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Do you have plans to move in the next year?</td>
+                    <td><input disabled type="radio" asp-for="@Model.planToMoveInNextYear" value="No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.planToMoveInNextYear" value="Yes" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        Have you and your child lived with family/friends, in a shelter, hotel, car, or other temporary housing in the past
+                        year?
+                    </td>
+                    <td><input disabled type="radio" asp-for="@Model.otherLiving" value="No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.otherLiving" value="Yes" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row m-3">
+        <label for="ParentsStatus">Present Status of child’s parents:</label>
+
+        <select disabled asp-for="@Model.parentsStatus">
+            <option value=""></option>
+            <option value="Living together">Living together</option>
+            <option value="living apart">Living apart</option>
+            <option value="Divorced">Divorced</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Names and ages of brothers and sisters (please indicate step, foster, adopted, etc.):
+            <textarea disabled asp-for="@Model.siblings" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Other persons in present households (include name, sex, age, and relationship):
+            <textarea disabled asp-for="@Model.othersInHousehold" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Child’s previous group experiences (preschool, childcare, etc.) & their age at the time of the experience:
+            <textarea disabled asp-for="@Model.previousGroupExperience" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <tbody>
+                <tr class="formRow">
+                    <td>Does the child's family/families have any pets?</td>
+                    <td>
+                        <input type="text" disabled asp-for="@Model.pets" class="formValue" />
+                    </td>
+            </tbody>
+        </table>
+    </div>
+    <div class="row m-3">
+        <label for="Play">Does the child prefer to play:</label>
+
+        <select disabled asp-for="@Model.preferToPlay">
+            <option value=""></option>
+            <option value="Alone">Alone</option>
+            <option value="With Playmates">With Playmates</option>
+            <option value="With Siblings">With Siblings</option>
+            <option value="With Adults">With Adults</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <thead class="bg-color-5">
+                <tr>
+                    <th scope="col">What types of play does the child prefer?</th>
+                    <th scope="col" class="p-0">No</th>
+                    <th scope="col" class="p-0">Yes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>pretend</td>
+                    <td><input disabled type="radio" asp-for="@Model.pretend" value="pretend-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.pretend" value=" pretend-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>building</td>
+                    <td><input disabled type="radio" asp-for="@Model.building" value="building-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.building" value="building-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>sensory (sand, water, mud, clay, playdough)</td>
+                    <td><input disabled type="radio" asp-for="@Model.sensory" value="sensory-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.sensory" value="sensory-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>creative art</td>
+                    <td><input disabled type="radio" asp-for="@Model.creativeArt" value="creativeArt-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.creativeArt" value="creativeArt-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>outdoor</td>
+                    <td><input disabled type="radio" asp-for="@Model.outdoor" value="outdoor-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.outdoor" value="outdoor-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>physical activity (soccer, bikes, balls, climbing, etc.)</td>
+                    <td><input disabled type="radio" asp-for="@Model.physicalActivity" value="physicalActivity-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.physicalActivity" value="physicalActivity-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>music</td>
+                    <td><input disabled type="radio" asp-for="@Model.music" value="music-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.music" value="music-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>technology (computer, video games)</td>
+                    <td><input disabled type="radio" asp-for="@Model.technology" value="technology-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.technology" value="technology-Yes" /></td>
+                </tr>
+                <tr>
+                    <td>learning games (puzzles, sorting, matching)</td>
+                    <td><input disabled type="radio" asp-for="@Model.learningGames" value="learningGames-No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.learningGames" value="learningGames-Yes" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            If your child has a favorite book, please write the name of the book here:
+            <textarea disabled asp-for="@Model.favoriteBook" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            What are the child’s favorite outdoor activities?
+            <textarea disabled asp-for="@Model.favoriteOutdoorActivity" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            List some of the child’s favorite toys, play equipment, finger plays, or pretend games, etc.
+            <textarea disabled asp-for="@Model.favoriteToys" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            What are some activities that you and your child enjoy doing?
+            <textarea disabled asp-for="@Model.guardianAndChildActivity" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            List the TV programs/Movies the child prefers to watch:
+            <textarea disabled asp-for="@Model.tvMovies" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <label for="TV">How many hours does your child watch TV or play video/computer games at home on a usual weekday?</label>
+
+        <select disabled asp-for="@Model.hoursScreenTime">
+            <option value=""></option>
+            <option value="None">None</option>
+            <option value="1/2 hour">1/2 hour</option>
+            <option value="1/2-1 hour">1/2-1 hour</option>
+            <option value="1-2 hours">1-2 hours</option>
+            <option value="2-3 hours">2-3 hours</option>
+            <option value="3-4 hours">3-4 hours</option>
+            <option value="4-5 hours">4-5 hours</option>
+            <option value="5-6 hours">5-6 hours</option>
+            <option value="6-7 hours">6-7 hours</option>
+            <option value="7-8 hours">7-8 hours</option>
+            <option value="8-9 hours">8-9 hours</option>
+            <option value="9-10 hours">9-10 hours</option>
+            <option value="10+ hours">10+ hours</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            What technology is your child familiar with?
+            <textarea disabled asp-for="@Model.technologyChildIsFamiliar" rows="2"></textarea>
+        </div>
+    </div>
+    <div class="row m-3">
+        <label>Approximately, how many children’s books does your child have of their own or share with a sibling?</label>
+
+        <select disabled asp-for="@Model.howManyBooksChildOwns">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="30">30</option>
+            <option value="35">35</option>
+            <option value="40">40</option>
+            <option value="45">45</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+            <option value="80">80</option>
+            <option value="90">90</option>
+            <option value="100+">100+</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Children learn from things like toys, people in their lives, and places they go. Remember these things can be
+            store bought, handmade, or used for other things like pots and pans. How many of the following things do you have
+            that your child can get when they want?
+        </div>
+    </div>
+    <div class="row m-3">
+        <label for="buildingtogether">Things for building/putting things together: nesting blocks, legos, or puzzles?</label>
+
+        <select disabled asp-for="@Model.thingsForBuilding">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3 or more">3 or more</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="comparingorsorting">Things for learning such as games that require comparing or sorting?</label>
+
+        <select disabled asp-for="@Model.thingsForLearning">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3 or more">3 or more</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="electronictoys">For interactive learning such as See and Say, Leap Frog, or electric toys?</label>
+
+        <select disabled asp-for="@Model.interactiveLearning">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3 or more">3 or more</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="muscledevelopment">Things for muscle development such as a basketball, jump rope, or bicycle?</label>
+
+        <select disabled asp-for="@Model.muscleDevelopment">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3 or more">3 or more</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="creativeactivities">Things for art or creative activities: crayons, markers, chalk, or play dough?</label>
+
+        <select disabled asp-for="@Model.thingsForArt">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3 or more">3 or more</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="music">Things for music such as a toy musical instrument or electronic music player?</label>
+
+        <select disabled asp-for="@Model.thingsForMusic">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3 or more">3 or more</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <table class="table-borderless table-sm unstriped">
+            <thead class="bg-color-5">
+                <tr>
+                    <th scope="col"> </th>
+                    <th scope="col" class="">No</th>
+                    <th scope="col" class="">Yes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>In the past month, have you visited the library?</td>
+                    <td><input disabled type="radio" asp-for="@Model.lastMonthLibraryVisits" value="No" checked /></td>
+                    <td><input disabled type="radio" asp-for="@Model.lastMonthLibraryVisits" value="Yes" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            In the past week, how many times did the following people read or look at a book with your child? (not
+            including while in child care)
+        </div>
+    </div>
+    <div class="row m-3">
+        <label for="motherfigure">Mother/figure?</label>
+
+        <select disabled asp-for="@Model.motherFigureReading">
+            <option value=""></option>
+            <option value="None/Not Available">None/Not Available</option>
+            <option value="1‐2 times">1‐2 times</option>
+            <option value="3‐5 times">3‐5 times</option>
+            <option value="6 or more times">6 or more times</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="fatherfigure">Father/figure?</label>
+
+        <select disabled asp-for="@Model.fatherFiguerReading">
+            <option value=""></option>
+            <option value="None/Not Available">None/Not Available</option>
+            <option value="1‐2 times">1‐2 times</option>
+            <option value="3‐5 times">3‐5 times</option>
+            <option value="6 or more times">6 or more times</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="anyoneelse">Anyone else?</label>
+
+        <select disabled asp-for="@Model.readingWithOthers">
+            <option value=""></option>
+            <option value="None/Not Available">None/Not Available</option>
+            <option value="1‐2 times">1‐2 times</option>
+            <option value="3‐5 times">3‐5 times</option>
+            <option value="6 or more times">6 or more times</option>
+        </select>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

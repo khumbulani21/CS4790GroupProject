@@ -1,0 +1,62 @@
+﻿
+@page
+@model IndexModel
+@{ ViewData["Title"] = "Log In"; }
+
+<div class="container mt-2">
+    <div class="row text-center p-3">
+        <div class="col-12">
+            <h4><b>The Melba S. Lehner Children's School</b></h4>
+        </div>
+    </div>
+    <div class="container-fluid row">
+        <div>
+            <img alt="" class="banner__image" data-interchange="[https://www.weber.edu/wsuimages/childrensschool/banner-800x500.jpg, small], [https://www.weber.edu/wsuimages/childrensschool/childrens_homepage.jpg, large], [https://www.weber.edu/wsuimages/childrensschool/childrens_homepage.jpg, xxlarge]" data-resize="ntda7q-interchange" id="ntda7q-interchange" src="https://www.weber.edu/wsuimages/childrensschool/childrens_homepage.jpg" data-events="resize">
+        </div>
+    </div>
+    <div class="row pt-3 ">
+        <div class="col-lg-4 col-sm-12 order-lg-2 ">
+            <h5 class="text-center"><b>Login</b></h5>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="container-fluid bg-color-5 shadow">
+                <div class="row">
+                    <div class="col-12 pt-3 form-group pb-0">
+                        <form method="post" id="account" class="">
+                            <label asp-for="Input.Email" class="color-1"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <label asp-for="Input.Password" class="color-1"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <button type="submit" class="button">Sign In</button>
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe">
+                                    <input asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                            <a href="#" class="color-1">Forgot Password?</a>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-sm-12 order-lg-3 text-center pt-5 pt-lg-0">
+            <h5 class=""><b>Payments</b></h5>
+            <button>Online Payment</button>
+        </div>
+        <div class="col-lg-4 col-sm-12 order-lg-1 pt-5 pt-lg-0">
+            <h5 class="text-center"><b>About</b></h5>
+            <p class="text-center">The system is designed to aid the management of daycare enrollments. Guardians  can submit applications, make payments and more.</p>
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    <a class="button large color-4" asp-area="Identity" asp-page="/Account/Register">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

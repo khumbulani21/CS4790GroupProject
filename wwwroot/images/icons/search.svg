@@ -1,0 +1,33 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" width="50px" height="50px" viewBox="0 0 50 50">
+<defs>
+<image id="icon_sprite_png" x="0" y="0" width="400" height="150" xlink:href="./images/icon_sprite_png.png"/>
+
+<path id="Layer1_0_1_STROKES" stroke="#B3ACA5" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 24.3 27.1
+L 26.2 25.2 26.15 25.15
+Q 24.25 23.25 24.25 20.6 24.25 17.95 26.15 16.05 28.05 14.15 30.7 14.15 33.35 14.15 35.25 16.05
+L 35.3 16.1
+Q 37.15 17.95 37.15 20.6 37.15 23.2 35.35 25.05
+L 35.25 25.15
+Q 33.25 27.05 30.7 27.05 28.05 27.05 26.2 25.2"/>
+
+<path id="Layer1_0_2_STROKES" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" d="
+M 23.75 27.65
+Q 24 27.95 24 28.4 24 28.8 23.75 29.05
+L 18.2 36.2
+Q 17.6 36.65 16.8 36.7 15.9 36.7 15.3 36.05 14.65 35.45 14.65 34.6 14.65 33.7 15.2 33.2
+L 22.3 27.65
+Q 22.6 27.4 23 27.35 23.4 27.35 23.75 27.65 Z"/>
+</defs>
+
+<g transform="matrix( 1, 0, 0, 1, -99,-49.55) ">
+<use xlink:href="#icon_sprite_png"/>
+</g>
+
+<g transform="matrix( 1, 0, 0, 1, 0,0) ">
+<use xlink:href="#Layer1_0_1_STROKES"/>
+
+<use xlink:href="#Layer1_0_2_STROKES"/>
+</g>
+</svg>

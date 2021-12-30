@@ -1,0 +1,42 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Volunteers.Opportunities.IndexModel
+@{
+    ViewData["Title"] = "Volunteer Opportunities";
+}
+<div class="container">
+    <h3>
+        Volunteer Opportunities
+        <span class="float-right">
+            <a asp-page="Upsert" asp-route-OpportunityID="0"><i class="fi-plus success-color">‌</i></a>
+        </span>
+    </h3>
+    @foreach (var opportunity in Model.Opportunities)
+    {
+        <div class="card text-dark mb-3 rounded shadow-lg shadow">
+            <div class="card-header bg-color-5">
+                @opportunity.VolunteerOpDescription (@opportunity.Volunteers.Count)
+                <span class="float-right">
+                    <i data-open="volunteersModal@(opportunity.VolunteerOpID)" class="fi-eye large mr-3" style="cursor:pointer;">‌</i>
+                    <a asp-page="Upsert" asp-route-OpportunityID="@opportunity.VolunteerOpID"><i class="fi-page-edit warning-color large">‌</i></a>
+                </span>
+            </div>
+        </div>
+        <div class="reveal" id="volunteersModal@(opportunity.VolunteerOpID)" data-reveal>
+            <h2 class="border-bottom">Volunteers For @opportunity.VolunteerOpDescription</h2>
+            <div class="row">
+                @if (opportunity.Volunteers.Any())
+                {
+                    foreach (var volunteer in opportunity.Volunteers)
+                    {
+                        <div class="col-12">
+                            <a asp-page="/Admin/Guardians/View" asp-route-guardianID="@volunteer.GuardianID">@volunteer.Guardian.FullName <i class="fi-arrow-right">‌</i></a>
+                        </div>
+                    }
+                }
+            </div>
+            <button class="close-button" data-close aria-label="Close modal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+</div>

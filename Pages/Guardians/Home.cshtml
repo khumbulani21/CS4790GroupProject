@@ -1,0 +1,120 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.HomeModel
+@{
+}
+
+<link rel="stylesheet" href="~/css/tabs.css" />
+
+<style>
+    #body {
+    }
+</style>
+<div class="container p-0 mt-2" id="body">
+    <div class="row" style="height:600px;">
+
+        <div class="col-lg-6 col-sm-12 border-left border-right order-lg-2" style="background-color: #dbd5e0">
+            <div class="row">
+                <div class="col-12 pb-3 pt-2 h5 text-center">
+                    <span><b>Manage Enrollment</b></span>
+                    <hr />
+                </div>
+                <div class="col-lg-12 col-sm-12" id="main-tabs">
+                    <ul id="tabs" class="nav nav-tabs m-0 small" role="tablist">
+                        <li class="nav-item border-0">
+                            <a id="tab-A" href="#pane-A" class="child-tab nav-link active" data-toggle="tab">Enrolled</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="tab-C" href="#pane-C" class="apply-tab nav-link" data-toggle="tab" role="tab">WaitList</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="tab-B" href="#pane-B" class="contact-tab nav-link" data-toggle="tab" role="tab">Pending</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="tab-B" href="#pane-B" class="contact-tab nav-link" data-toggle="tab" role="tab">Needs Info</a>
+                        </li>
+                    </ul>
+                    <div id="content" class="tab-content" role="tablist">
+                        <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                            <div class="card-body pt-3 rounded-right rounded-bottom font-1-2 overflow-auto" style="background-image: linear-gradient(#a391b1 30%, #f9f2ff 70%, white 90%); background-color: #dbd5e0; height: 500px ">
+                                <div class="row">
+                                    @if (Model.ChildrenList != null)
+                                    {
+                                        foreach (var child in Model.ChildrenList)
+                                        {
+                                            <div class="col-lg-4 col-sm-12 text-center">
+                                                <div class="card text-center pb-0 shadow rounded" style="background-color: #f9f2ff">
+                                                    <img class="card-img-top p-1" src="~/images/images/placeholder.png" alt="Card image cap">
+                                                    <div class="card-body text-center pt-1 pb-0">
+                                                        <div class="row pb-0">
+                                                            <div class="col-12 text-center">
+                                                                <p><small><b>@child.ChildFirst</b></small></p>
+                                                            </div>
+                                                            <div class="col-12 text-center">
+                                                                <a class="button small shadow-lg rounded">Check-In</a>
+                                                                <a class="button tiny shadow-lg rounded">Profile</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-12 text-center">
+                    <span><b>Enrolled</b></span>
+                    <hr />
+                </div>
+                <div class="col-12">
+                    <!--<div class="card border-0 mb-3 ">
+                <div class="card-body pb-0 mr-1 text-primary">
+                            <div class="row text-dark">
+                                <div class="col-8"><b>Child's Name</b></div>
+                                <div class="col-4"><a class="button small">CHECKIN</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 border-left order-lg-0" style="background-color: #dbd5e0">
+            <div class="col-12 pb-3 pt-2 h5 text-center">
+                <span><b>Recent Activity</b></span>
+                <hr />
+            </div>
+            <div class="m-1" style="background-image: linear-gradient(#a391b1 30%, #f9f2ff 70%, white 90%); height: 535px;">
+                <div class="row pl-2">
+                    <div class="col-12 pt-1">
+                        <span><small>November 15, 2021</small></span>
+                        <p><b>Note added</b></p>
+                    </div>
+                    <div class="col-12 pt-1">
+                        <span><small>November 12, 2021</small></span>
+                        <p><b>Payment received: $29.99</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 border-right order-lg-3" style="background-color: #dbd5e0">
+            <div class="col-12 pb-3 pt-2 h5 text-center">
+                <span><b>Billing</b></span>
+                <hr />
+            </div>
+            <div class="row m-1" style="background-image: linear-gradient(#a391b1 30%, #f9f2ff 70%, white 90%); height: 535px;">
+                <div class="col-12 pt-1 text-center">
+
+                    <p><b>Current Balance: $98.96</b></p>
+                    <a class="button shadow-lg rounded">Make Payment</a>
+                </div>
+                <div class="col-12 text-center">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

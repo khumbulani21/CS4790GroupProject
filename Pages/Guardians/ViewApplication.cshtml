@@ -1,0 +1,101 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.ViewApplicationModel
+@{ ViewData["Title"] = "View Application"; }
+<form method="post">
+    <div class="container">
+        <fieldset>
+            <legend class="xxlarge color-1">Applications Submitted by You:</legend>
+            @*<h1 class="m-4">Applications Submitted by You: </h1>*@
+            <input class="form-control" style="width:650px" id="myInput" type="text" placeholder="Search..">
+            <input type="hidden" asp-for="@Model.currentGuardianID" />
+            <br>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr class="bg-color-1">
+                        <th class="text-white">Child</th>
+                        <th class="text-white">Program Applied For</th>
+                        <th class="text-white">Application Status</th>
+                        <th class="text-white">Action</th>
+                    </tr>
+                </thead>
+                @for (int i = 0; i < Model.child.Count; i++)
+                {
+    @for (int x = 0; x < Model.application.Count; x++)
+    {
+        if (Model.application[x].ChildID == Model.child[i].ChildID)
+        {
+<tbody id="myTable">
+    <tr>
+        <td><label>@Model.child[i].FullName</label></td>
+        <td><label>@Model.application[x].Program.ProgramName</label></td>
+        <td><label>@Model.application[x].ApplicationStatus</label></td>
+        <td>
+            <span id="confirmSpan_@Model.application[x].ApplicationID" style="display:none">
+                <span>Are you sure you want to cancel application?</span>
+                <input class="button btn-success" asp-route-id="@Model.application[x].ApplicationID" value="Yes" type="submit">
+                <a class="button btn-danger" onclick="confirmDelete('@Model.application[x].ApplicationID', false)">No</a>
+            </span>
+
+            <span id="deleteSpan_@Model.application[x].ApplicationID">
+                <a class="button btn-loader" onclick="confirmDelete('@Model.application[x].ApplicationID', true)">Cancel Application</a>
+            </span>
+        </td>
+    </tr>
+</tbody>}
+                }}
+                @*@if (Model.application.Count != 0)
+                    {
+                    <tbody id="myTable">
+                            @{ for (int i = 0; i < Model.child.Count; i++)
+                                {
+                                            <tr>
+                                                <td><label>@Model.child[i].FullName</label></td>
+                                                <td><label>@Model.program[i].ProgramName</label></td>
+                                                <td><label>@Model.application[i].ApplicationStatus</label></td>
+                                                <td>
+                                                    <span id="confirmSpan_@Model.application[i].ApplicationID" style="display:none">
+                                                        <span>Are you sure you want to cancel application?</span>
+                                                        <input class="button btn-success" asp-route-id="@Model.application[i].ApplicationID" value="Yes" type="submit">
+                                                        <a class="button btn-danger" onclick="confirmDelete('@Model.application[i].ApplicationID', false)">No</a>
+                                                    </span>
+
+                                                    <span id="deleteSpan_@Model.application[i].ApplicationID">
+                                                        <a class="button btn-loader" onclick="confirmDelete('@Model.application[i].ApplicationID', true)">Cancel Application</a>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                }
+                            }
+                    </tbody>
+                     }*@
+            </table>
+        </fieldset>
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    function confirmDelete(uniqueId, isDeleteClick, isYesClick) {
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmSpan = 'confirmSpan_' + uniqueId;
+
+        if (isDeleteClick) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmSpan).show();
+        }
+        else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmSpan).hide();
+        }
+
+    }
+</script>

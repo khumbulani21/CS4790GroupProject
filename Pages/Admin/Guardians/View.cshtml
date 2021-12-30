@@ -1,0 +1,154 @@
+﻿@page "{GuardianID}"
+@model CS4790GroupProject.Pages.Admin.Guardians.ViewModel
+@{
+}
+<div class="container">
+    <div class="row">
+        <fieldset class="col-md-5">
+            <legend class="color-1">@Model.Guardian.FullName</legend>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Weber State Relationship</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Guardian.WeberStateRelationship</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Years of Education</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Guardian.YearsOfEducation</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Occupation</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Guardian.Occupation</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Employer</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Guardian.Employer</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Weekly Hours Worked</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Guardian.WeeklyHoursWorked</span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12">
+                    <span class="info-text font-weight-bold">Address</span>
+                </div>
+                <div class="col-12">
+                    <span class="info-text pl-3">@Model.Guardian.Address.FullAddress</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="offset-md-1 col-md-5">
+            <legend class="color-1">Volunteer Opportunities</legend>
+
+            @if (Model.Guardian.VolunteeredFor != null && Model.Guardian.VolunteeredFor.Any())
+            {
+                foreach (var oppurtunity in Model.Guardian.VolunteeredFor)
+                {
+                    <div class="col-12">
+                        <a asp-page="/Admin/Volunteers/Opportunities/Index">@oppurtunity.VolunteerOpportunity.VolunteerOpDescription <i class="fi-arrow-right">‌</i></a>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        No volunteer oppportunities signed up for
+                    </div>
+                </div>
+            }
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset class="col-md-5">
+            <legend class="color-1">Children</legend>
+            <div class="row">
+                @if (Model.Guardian.FamilyGroups != null && Model.Guardian.FamilyGroups.Any())
+                {
+                    foreach (var familyGroup in Model.Guardian.FamilyGroups)
+                    {
+
+                        <div class="col-12 mb-2">
+                            <a asp-page="/Admin/Child/View" asp-route-childid="@familyGroup.ChildID">@familyGroup.Child.FullName <i class="fi-arrow-right">‌</i></a>
+                            <div class="pl-3 text-secondary" style="font-size: .75em;">
+                                @familyGroup.RelationshipType.RelationshipDescription
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <div class="col-12">
+                        No childen attached to this guardian
+                    </div>
+                }
+            </div>
+        </fieldset>
+        <fieldset class="offset-md-1 col-md-5">
+            <legend class="color-1">
+                Contact Info
+            </legend>
+            @if (Model.Guardian.ContactInfos != null && Model.Guardian.ContactInfos.Any())
+            {
+                foreach (var child in Model.Guardian.ContactInfos.Select(x => x.ChildID).Distinct())
+                {
+                    <h5>@Model.Guardian.FamilyGroups.FirstOrDefault(i => i.ChildID == child).Child.FullName</h5>
+                    foreach (var contact in Model.Guardian.ContactInfos.Where(i => i.ChildID == child))
+                    {
+                        <div class="row mb-2 border-bottom pb-2">
+                            <div class="col-12">
+                                <span class="info-text font-weight-bold">@contact.ContactFirst @contact.ContactLast</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3">@contact.ContactType.ContactTypeDescription - @contact.ContactValue</span>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        Primary
+                                        <i class='@(contact.PrimaryContact ? "fi-check success-color" : "fi-x alert-color")'></i>
+                                    </div>
+                                    <div class="col-4">
+                                        Out of Area
+                                        <i class='@(contact.OutOfArea ? "fi-check success-color" : "fi-x alert-color")'></i>
+                                    </div>
+                                    <div class="col-4">
+                                        Authorized
+                                        <i class='@(contact.AuthorizedToPickUp != null ? "fi-check success-color" : "fi-x alert-color")'></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        No contact info set.
+                    </div>
+                </div>
+            }
+        </fieldset>
+    </div>
+</div>

@@ -1,0 +1,557 @@
+﻿@page
+@model CS4790GroupProject.Pages.Guardians.IndexModel
+@{
+
+    var approvedCount = 0;
+}
+@using Microsoft.AspNetCore.Identity
+@using ApplicationCore.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link rel="stylesheet" href="~/css/tabs.css" />
+
+<!--Flow: Add Child -> Apply -> Contact Info -> Family Information -> Child health-->
+<div class="container">
+    <div class="row">
+        @*<div class="col-lg-2 d-none d-xl-block"></div>*@
+        <div class="col-lg-12 col-sm-12">
+            <div class="row">
+            </div>
+            <hr />
+            <div class="row text-center">
+                <div class="text-center col-12 "><span class="font-weight-bold text-dark" id="progressText"></span></div>
+            </div>
+            <div class="progress shadow row" style="height: 34px;">
+                <div class="progress-bar progress-bar-striped bg-color-1" id="progressBar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4">
+                </div>
+            </div>
+
+        </div>
+        @*<div class="col-lg-2 d-none d-xl-block"></div>*@
+    </div>
+</div>
+
+<div class=" row container pt-3 pl-lg-5 pr-lg-5">
+    <div class="col-lg-1 d-none d-xl-block"></div>
+    <div class="col-lg-10 col-sm-12" id="main-tabs">
+        <hr />
+        <ul id="tabs" class="nav nav-tabs m-0" role="tablist">
+            <li class="nav-item">
+                <a id="tab-A" href="#pane-A" class="child-tab nav-link active" data-toggle="tab">Add Children</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-C" href="#pane-C" class="apply-tab nav-link disabled" data-toggle="tab" role="tab">Apply</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-B" href="#pane-B" class="contact-tab nav-link disabled" data-toggle="tab" role="tab">Contact Information</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-D" href="#pane-D" class="family-tab nav-link disabled" data-toggle="tab" role="tab">Family Information</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab-E" href="#pane-E" class="health-tab nav-link disabled" data-toggle="tab" role="tab">Health Assessment</a>
+            </li>
+        </ul>
+        <div id="content" class="tab-content" role="tablist">
+            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                <div class="card-header" role="tab" id="heading-A">
+                    <h5 class="mb-0">
+
+                        <a data-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">
+                            Add Children
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-A" class="collapse border-0 m-0 rounded-right rounded-bottom" data-parent="#content" role="tabpanel" aria-labelledby="heading-A">
+                    <!--Add Child tab body-->
+                    @if (Model.hasChildren == false)
+                    {
+                        <!--if Guardian has not added any children-->
+                        <div class="card-body pt-3 rounded-right rounded-bottom font-1-2" style="background-color: #f9f2ff">
+                            <div class="row rounded">
+                                <div class="col-12 rounded">
+                                    <p class="font-weight-bold">STEP 1: Add Child(ren)</p>
+                                    <p>To apply for one of our programs you will need to first add the child/children that will be attending.</p>
+                                    <a asp-page="/Guardians/Children/Upsert" asp-route-ChildID="0" asp-route-GuardianID="@Model.guardianID" class="button bg-color-1 shadow">Add A Child</a>
+                                    <p>Requirements:</p>
+                                    <p>{Enter any requirements children must meet here}</p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <!--Add Children Tab Body-->
+                        <div class="card-body pt-3 rounded-right rounded-bottom font-1-2" style="background-color: #fdfaff">
+                            <div class="row rounded">
+                                <div class="col-12 rounded">
+                                    <p class="font-weight-bold">STEP 1: Add Child(ren)</p>
+                                    <p class="h4">You currently have @Model.Children.Count() children added:</p>
+                                    <div class="row ml-lg-2 mr-lg-2 mt-lg-2">
+                                        <div class="col-12 text-right pb-2">
+                                            <a asp-page="/Guardians/Children/Upsert" asp-route-ChildID="0" asp-route-GuardianID="@Model.guardianID"><i class="fi-plus success-color"></i> Add Child</a>
+                                        </div>
+                                        <!--Add Chilren table-->
+                                        <div class="col-12 overflow-auto" style="height: 200px;">
+                                            <table class="table-sm shadow">
+                                                <thead class="p-0 border-0 text-center">
+                                                    <tr class="bg-color-1">
+                                                        <th scope="col" class="text-white">Child's Name</th>
+                                                        <th scope="col" class="text-center text-white">Age</th>
+                                                        <th scope="col" class="text-center text-white">Gender</th>
+                                                        <th scope="col" class="text-center text-white">Actions</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="border-0 m-0">
+                                                    @foreach (var child in Model.Children)
+                                                    {
+                                                        var birthday = child.ChildDOB;
+                                                        var age = DateTime.Today.Year - birthday.Year;
+
+                                                        <tr class="medium">
+                                                            <th scope="row">@Html.DisplayFor(item => child.FullName)</th>
+                                                            <th scope="row" class="text-center">@age yrs</th>
+                                                            <th scope="row" class="text-center">@Html.DisplayFor(item => child.ChildGender)</th>
+                                                            <th scope="row" class="text-center pb-0 pt-2">
+                                                                <a asp-page="/Guardians/Children/Upsert" asp-route-ChildID="@child.ChildID"
+                                                                   asp-route-GuardianID="@Model.guardianID" class="button tiny shadow">EDIT</a>
+                                                                <button class="button tiny shadow alert">DELETE</button>
+                                                            </th>
+                                                        </tr>
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row rounded pt-5">
+                                        <div class="col-lg-12">
+                                            @*<span class="right">STEP 2: <button id="step2btn" class="button bg-color-3 shadow">Apply</button></span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div id="pane-C" class="card tab-pane show fade" role="tabpanel" aria-labelledby="tab-C">
+                <div class="card-header" role="tab" id="heading-C">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapse-C" aria-expanded="false" aria-controls="collapse-C">
+                            Apply
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-C" class="collapse border-0 m-0 rounded-right rounded-bottom rounded-left" role="tabpanel" data-parent="#content" aria-labelledby="heading-C">
+                    <!--Application Tab-->
+                    <div class="card-body pt-3 rounded-left rounded-right rounded-bottom font-1-2" style="background-color: #fdfaff">
+                        <div class="row rounded">
+                            <div class="col-lg-12">
+                                <p class="font-weight-bold">STEP 2: Apply</p>
+                                @if (!Model.ApplicationStatus.Any())
+                                {
+                                    <div class="row">
+                                        <div class="col-12 h4 mt-1">
+                                            <div class="h4 mb-3">The Melba S. Lehner Children's School Programs:</div>
+                                            <ul class="ml-5" style="list-style-type: none">
+                                                <li>2.5 Hour Preschool (ages 3 and older)</li>
+                                                <li>Extended Care (ages 4-6)</li>
+                                                <li>Exended Hours Preschool (ages 3-5)</li>
+                                                <li>Extended Hours One Year Old (ages 1-2)</li>
+                                                <li>Extended Hours Two Year Old (ages 2-3)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <a asp-page="/Guardians/ApplyPreschool" asp-route-id="@Model.guardianID" class="button shadow ">Apply</a>
+                                }
+                                else
+                                {
+                                    <div class="h4 mb-5">Current Applications:</div>
+                                    <div class="row ml-lg-2 mr-lg-2">
+                                        <div class="col-12 overflow-auto" style="height: 200px;">
+                                            <table class="table-sm shadow">
+                                                <thead class="p-0 border-0 text-center">
+                                                    <tr class="bg-color-1">
+                                                        <th scope="col" class="text-white">Child's Name</th>
+                                                        <th scope="col" class="text-center text-white">Program Name</th>
+                                                        <th scope="col" class="text-center text-white">Application Status</th>
+                                                        <th scope="col" class="text-center text-white">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="border-0 m-0">
+                                                    @foreach (var app in Model.ApplicationStatus)
+                                                    {
+                                                        @if (app.ApplicationStatus == "Approved")
+                                                        {
+                                                            approvedCount++;
+                                                        }
+                                                        <tr class="medium">
+                                                            <th scope="row">@app.Child.FullName</th>
+                                                            <th scope="row" class="text-center">@app.Program.ProgramName</th>
+
+                                                            @if (app.ApplicationStatus == "Pending")
+                                                            {
+                                                                <th scope="row" class="text-center">@app.ApplicationStatus*</th>
+                                                                <th scope="row" class="text-center pr-3 pt-2">
+                                                                    <a asp-page="/Guardians/ViewApplication" asp-route-id="@Model.guardianID"
+                                                                       class="button tiny shadow">VIEW</a>
+                                                                </th>
+                                                            }
+                                                            else if (app.ApplicationStatus == "Approved")
+                                                            {
+                                                                <th scope="row" class="text-center">@app.ApplicationStatus</th>
+                                                                <th scope="row" class="text-center pr-3 pt-2">
+                                                                    <a asp-page="/Guardians/ContactInfos/Index" asp-route-id="@Model.guardianID" asp-route-ChildID="@app.Child.ChildID"
+                                                                       class="button tiny shadow success">ADD CONTACTS</a>
+                                                                </th>
+                                                            }
+                                                            else
+                                                            {
+                                                                <th scope="row" class="text-right pr-3 pt-2">
+                                                                    <a asp-page="/Guardians/ViewApplication" asp-route-id="@Model.guardianID"
+                                                                       class="button tiny shadow ">VIEW</a>
+                                                                </th>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                            @*<span>Approved Applications: @approvedCount</span>*@
+
+                                        </div>
+                                        <span><small>*If your application is pending, please check back later. You will be notified once your application has been processed.</small></span><br />
+                                        <span>If you recently added another child, <a asp-page="/Guardians/ApplyPreschool" asp-route-id="@Model.guardianID" class=""> Click Here</a></span>
+                                    </div>
+                                    <div class="row rounded">
+                                        <div class="col-lg-12 mt-4">
+                                            @*<span class="right">STEP 3: <button class="button bg-color-3 shadow" id="step4btn">Contact Info</button></span>*@
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="pane-B" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-B">
+                <div class="card-header" role="tab" id="heading-B">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapse-B" aria-expanded="false" aria-controls="collapse-B">
+                            Contact Info
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-B" class="collapse border-0 m-0 rounded-right rounded-bottom rounded-left" data-parent="#content" role="tabpanel" aria-labelledby="heading-B">
+                    <!--Contact Info Tab Body-->
+                    <div class="card-body pt-3 rounded-left rounded-right rounded-bottom font-1-2" style="background-color: #fdfaff">
+                        <div class="row rounded">
+                            <div class="col-lg-12">
+                                <p class="font-weight-bold">STEP 3: Add Contact Information</p>
+                                <div class="h4">Guardian Contact Information:</div>
+                                <div class="ml-4">
+                                    <button class="button small success mr-2 shadow">Add Guardian</button>
+                                    <a asp-page="/Guardians/Addresses/Index" asp-route-id="@UserManager.GetUserId(User)" class="button small shadow">Edit Guardian</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row rounded">
+                            <div class="col-lg-12">
+                                <div class="h4">Child's Contact Information:</div>
+
+                                <div class="row ml-lg-2 mr-lg-2">
+                                    <div class="col-12 overflow-auto" style="height: 200px;">
+                                        <table class="table-sm shadow">
+                                            <thead class="p-0 border-0 text-center">
+                                                <tr class="bg-color-1">
+                                                    <th scope="col" class="text-white">Child's Name</th>
+                                                    <th scope="col" class="text-center text-white">Age</th>
+                                                    <th scope="col" class="text-center text-white">Gender</th>
+                                                    <th scope="col" class="text-center text-white">Contacts Added</th>
+                                                    <th scope="col" class="text-center text-white">Actions</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody class="border-0 m-0">
+                                                @if (Model.hasChildren == true)
+                                                {
+                                                    @foreach (var child in Model.Children)
+                                                    {
+                                                        var birthday = child.ChildDOB;
+                                                        var age = DateTime.Today.Year - birthday.Year;
+
+                                                        <tr class="medium">
+                                                            <th scope="row">@Html.DisplayFor(item => child.FullName)</th>
+                                                            <th scope="row" class="text-center">@age yrs</th>
+                                                            <th scope="row" class="text-center">@Html.DisplayFor(item => child.ChildGender)</th>
+
+                                                            @if (Model.HasContactsComplete.Any())
+                                                            {
+                                                                @foreach (var contact in Model.HasContactsComplete)
+                                                                {
+                                                                    if (contact == child.ChildID)
+                                                                    {
+
+                                                                        <th scope="row" class="text-center">
+                                                                            <span>Yes</span>
+                                                                        </th>
+                                                                        <th scope="row" class="text-center pb-0 pt-1">
+                                                                            <a asp-page="/Guardians/ContactInfos/Index" asp-route-GuardianID="@Model.guardianID"
+                                                                               asp-route-ChildID="@child.ChildID" asp-route-updateMode="True" class="button tiny shadow">EDIT</a>
+                                                                        </th>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <th scope="row" class="text-center">
+                                                                            <span>No</span>
+                                                                        </th>
+                                                                        <th scope="row" class="text-center pb-0 pt-1">
+                                                                            <a asp-page="/Guardians/ContactInfos/Index" asp-route-GuardianID="@Model.guardianID"
+                                                                               asp-route-ChildID="@child.ChildID" class="button tiny shadow success">ADD</a>
+                                                                        </th>
+                                                                    }
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <th scope="row" class="text-center">
+                                                                    <span>No</span>
+                                                                </th>
+                                                                <th scope="row" class="text-center pb-0 pt-1">
+                                                                    <a asp-page="/Guardians/ContactInfos/Index" asp-route-GuardianID="@Model.guardianID"
+                                                                       asp-route-ChildID="@child.ChildID" class="button tiny shadow success">ADD</a>
+                                                                </th>
+                                                            }
+
+                                                        </tr>
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
+                <div class="card-header" role="tab" id="heading-D">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapse-D" aria-expanded="false" aria-controls="collapse-D">
+                            Family Information
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-D" class="collapse border-0 m-0 rounded-right rounded-bottom rounded-left" role="tabpanel" data-parent="#content" aria-labelledby="heading-D">
+                    <!--Family Info Tab Body-->
+                    <div class="card-body pt-3 rounded-left rounded-right rounded-bottom font-1-2" style="background-color: #fdfaff">
+                        <div class="row rounded">
+                            <div class="col-lg-12">
+                                <p class="font-weight-bold">STEP 4: Complete Family Information Forms</p>
+
+                                <div class="h4 pb-4">Family Information Forms:</div>
+                                <div class="row ml-lg-2 mr-lg-2">
+                                    <div class="col-12 overflow-auto" style="height: 200px;">
+                                        <table class="table-sm shadow">
+                                            <thead class="p-0 border-0 text-center">
+                                                <tr class="bg-color-1">
+                                                    <th scope="col" class="text-white">Child's Name</th>
+                                                    <th scope="col" class="text-center text-white">Child's Routine</th>
+                                                    <th scope="col" class="text-center text-white">Goals</th>
+                                                    <th scope="col" class="text-center text-white">Guidance Behavior</th>
+                                                    <th scope="col" class=" text-white">Home Environment</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="border-0 m-0">
+                                                @foreach (var child in Model.Children)
+                                                {
+
+                                                    <tr class="medium">
+                                                        <th scope="row">@Html.DisplayFor(item => child.FullName)</th>
+                                                        <th scope="row" class="text-center pt-2">
+                                                            @if (Model.ChildsRoutineForm == null)
+                                                            {
+                                                                <a asp-page="/Guardians/Forms/ChildsRoutine" asp-route-id="@child.ChildID" class="button tiny warning shadow">FILL OUT</a>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <span>COMPLETE</span>
+                                                            }
+                                                        </th>
+                                                        <th scope="row" class="text-center pt-2">
+                                                            @if (Model.ChildGoalsForm == null)
+                                                            {
+                                                                <a asp-page="/Guardians/Forms/Goals" asp-route-id="@child.ChildID" class="button tiny warning shadow">FILL OUT</a>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <span>COMPLETE</span>
+                                                            }
+                                                        </th>
+                                                        <th scope="row" class="text-center pt-2">
+                                                            @if (Model.GuidanceBehaviorForm == null)
+                                                            {
+                                                                <a asp-page="/Guardians/Forms/GuidanceBehavior" asp-route-id="@child.ChildID" class="button tiny warning shadow">FILL OUT</a>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <span>COMPLETE</span>
+                                                            }
+                                                        </th>
+                                                        <th scope="row" class="pl-5 pt-2">
+                                                            @if (Model.HomeEnvironmentForm == null)
+                                                            {
+                                                                <a asp-page="/Guardians/Forms/HomeEnvironment" asp-route-id="@child.ChildID" class="button tiny warning shadow">FILL OUT</a>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <span>COMPLETE</span>
+                                                            }
+                                                        </th>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pane-E" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-E">
+                <div class="card-header" role="tab" id="heading-E">
+                    <h5 class="mb-0">
+                        <a class="collapsed" data-toggle="collapse" href="#collapse-E" aria-expanded="false" aria-controls="collapse-E">
+                            Health Assessment
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-E" class="collapse border-0 m-0 rounded-right rounded-bottom rounded-left" role="tabpanel" data-parent="#content" aria-labelledby="heading-E">
+                    <!--Health Assessment Tab Body-->
+                    <div class="card-body pt-3 rounded-left rounded-right rounded-bottom" style="background-color: #fdfaff">
+                        <div class="row rounded">
+                            <div class="col-lg-12">
+                                <p class="font-weight-bold">STEP 5: Complete Health Assessment Form</p>
+                                <div class="h4 pb-4">Health Assessment Form:</div>
+                                <div class="row ml-lg-2 mr-lg-2">
+                                    <div class="col-12 overflow-auto" style="height: 200px;">
+                                        <table class="table-sm shadow">
+                                            <thead class="p-0 border-0 text-center">
+                                                <tr class="bg-color-1">
+                                                    <th scope="col" class="text-white">Child's Name</th>
+                                                    <th scope="col" class="text-center text-white">Health Assessment</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="border-0 m-0">
+                                                @foreach (var child in Model.Children)
+                                                {
+
+                                                    <tr class="medium">
+                                                        <th scope="row">@Html.DisplayFor(item => child.FullName)</th>
+                                                        @*<th scope="row" class="text-center"><input type="checkbox" checked /></th>*@
+                                                        <th scope="row" class="pl-5 pt-3 text-center">
+                                                            @if (Model.HealthAssessmentForm == null)
+                                                            {
+                                                                <a asp-page="/Guardians/Forms/ChildHealthAssessmentForm" asp-route-id="@child.ChildID" class="button tiny warning shadow">FILL OUT</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>COMPLETE</span>
+                                                            }
+                                                        </th>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1 d-none d-xl-block"></div>
+</div>
+<script>
+    $('#step2btn').click(function (e) {
+        e.preventDefault();
+        $('#tabs a[href="#pane-C"]').tab('show');
+    });
+
+    //$('#step3btn').click(function (e) {
+    //    e.preventDefault();
+    //    $('#tabs a[href="#pane-C"]').tab('show');
+    //});
+
+    //if the account has been created, but no children have been added
+    if (@Model.FamilyGroupList.Count() == 0) {
+        document.getElementById('progressBar').style.width = "0%";
+        document.getElementById('progressText').innerHTML = "&nbsp;&nbsp;PROGRESS: Steps 0 of 5 Complete";
+    };
+
+    //if at least one child has been added
+    if (@Model.Children.Count() > 0) {
+        document.getElementById('progressBar').style.width = "20%";
+        document.getElementById('progressText').innerHTML = "PROGRESS: Steps 1 of 5 Complete";
+        document.getElementById("tab-C").classList.remove("disabled");
+        document.getElementById("tab-A").classList.remove("active");
+        document.getElementById("pane-A").classList.remove("active");
+        document.getElementById("tab-C").classList.add("active");
+        document.getElementById("pane-C").classList.add("active");
+    };
+
+    //if the application status list has at least one application
+    if (@Model.ApplicationStatus.Count() > 0) {
+       document.getElementById('progressBar').style.width = "40%";
+       document.getElementById('progressText').innerHTML = "PROGRESS: Steps 2 of 5 Complete";
+    };
+
+    //if the application has been approved
+    if (@approvedCount > 0) {
+        document.getElementById('tab-B').classList.remove("disabled");
+        document.getElementById("tab-C").classList.remove("active");
+        document.getElementById("pane-C").classList.remove("active");
+        document.getElementById("tab-B").classList.add("active");
+        document.getElementById("pane-B").classList.add("active");
+    };
+
+    //if the contact has been added
+    if (@Model.HasContactsComplete.Count() > 0) {
+        document.getElementById('progressBar').style.width = "60%";
+        document.getElementById('progressText').innerHTML = "PROGRESS: Steps 3 of 5 Complete";
+        document.getElementById('tab-D').classList.remove("disabled");
+        document.getElementById("tab-B").classList.remove("active");
+        document.getElementById("pane-B").classList.remove("active");
+        document.getElementById("tab-D").classList.add("active");
+        document.getElementById("pane-D").classList.add("active");
+    };
+    //if all forms have been completed
+    if (@Model.CompletedForms == 1) {
+        document.getElementById('progressBar').style.width = "80%";
+        document.getElementById('progressText').innerHTML = "PROGRESS: Steps 4 of 5 Complete";
+        document.getElementById('tab-E').classList.remove("disabled");
+        document.getElementById('tab-D').classList.remove("active");
+        document.getElementById('pane-D').classList.remove("active");
+        document.getElementById("tab-E").classList.add("active");
+        document.getElementById("pane-E").classList.add("active");
+
+    }
+
+</script>

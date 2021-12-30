@@ -1,0 +1,69 @@
+﻿@page
+
+@model CS4790GroupProject.Pages.Guardians.ApplyPreschoolModel
+@{ ViewData["Title"] = "Apply"; }
+
+@using Infrastructure.Services
+
+<div class="container">
+    <fieldset>
+        <legend class="xxlarge color-1">Apply Now!</legend>
+        <form method="post">
+            @*<h1 class="m-4">Apply Now!</h1>*@
+            <input class="form-control" style="width:650px" id="myInput" type="text" placeholder="Search..">
+            <input type="hidden" asp-for="@Model.currentGuardianID" />
+            <br>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div>
+                <div>
+                    @Html.DropDownListFor(m => m.applyObj.application.ChildID,
+                                                                   Model.applyObj.ChildList,
+                                                                   " - Please select a child to apply for - ",
+                                                                   new { @class = "form-control", @id = "ddlChild" })
+                    <span class="text-danger" asp-validation-for="applyObj.application.ChildID"></span>
+                </div>
+            </div>
+            <div>
+                <label asp-for="applyObj.application.RequestedHours" class="control-label">Time(s) Care is Needed</label>
+                <select asp-for="applyObj.application.RequestedHours" asp-items="SD.HourBlocks">
+                </select>
+            </div>
+            <table class="table table-striped table-bordered">
+                <thead class="bg-color-1">
+                    <tr>
+                        <th class="text-white">Program</th>
+                        <th class="text-white">Description</th>
+                        <th class="text-white">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    @{ for (int i = 0; i < Model.program.Count; i++)
+                        {
+            <tr>
+                <td>@Model.program[i].ProgramName</td>
+                <td>@Model.program[i].ProgramDescription</td>
+                <td>
+                    <input asp-route-id="@Model.program[i].ProgramID" type="submit" value="Apply" class="button btn-loader" data-submit-text="Processing">
+                </td>
+            </tr> } }
+                </tbody>
+            </table>
+        </form>
+    </fieldset>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

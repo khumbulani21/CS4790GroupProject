@@ -1,0 +1,21 @@
+﻿@model ApplicationCore.Models.ChildGoals
+
+<div class="reveal modal-small" id="childGoals" data-reveal>
+    <h2 class="border-bottom">Child Goals</h2>
+    <div class="row">
+        <div class="col-12">
+            In what ways would you like to see your child develop during this next year in our program?
+            <textarea disabled asp-for="@Model.childDevelopThisYear" rows="4"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Please add any additional comments which you feel will help us know your child and family better. Thank you
+            very much, we appreciate your help.
+            <textarea disabled asp-for="@Model.additionalComments" rows="5"></textarea>
+        </div>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

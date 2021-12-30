@@ -1,0 +1,223 @@
+﻿@page
+@model CS4790GroupProject.Pages.Admin.Enrollments.UpsertModel
+@{
+}
+
+<form method="post" asp-action="Upsert">
+    <div class="container">
+
+        <div class="row">
+            <!--Enrollment-->
+            <fieldset class=" col-md-5">
+                <legend class="color-1">Enrollment</legend>
+                <input id="applicationID" type="hidden" value="@Model.EnrollmentObj.Application.ApplicationID" />
+                @{
+                    if (@Model.EnrollmentObj.Enrollment.EnrollmentID != 0)
+                    {
+                        <div class="row mb-2">
+                            <input id="semesterID" type="hidden" value="@Model.EnrollmentObj.Semester.SemesterID" />
+                            <input id="enrollmentID" type="hidden" value="@Model.EnrollmentObj.Enrollment.EnrollmentID" />
+                            <div class="col-12">
+                                <span class="info-text font-weight-bold">Enrollment ID</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3">@Model.EnrollmentObj.Enrollment.EnrollmentID </span>
+                            </div>
+                        </div>
+                    }
+
+                }
+                @{
+                    if (Model.EnrollmentObj.Application.ApplicationID != 0)
+                    {
+                        <div class="row mb-2">
+
+                            <div class="col-12">
+                                <span class="info-text font-weight-bold">Application ID</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3"><a asp-page="/Admin/Applications/ApplicationInfo" asp-route-id="@Model.EnrollmentObj.Application.ApplicationID">@Model.EnrollmentObj.Application.ApplicationID</a> </span>
+                            </div>
+                        </div>
+                    }
+                }
+                @{
+                    if (Model.EnrollmentObj.Child.ChildID != 0)
+                    {
+                        <div class="row mb-2">
+                            <div class="col-12">
+                                <span class="info-text font-weight-bold">Child name</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="info-text pl-3"><a asp-page="/Admin/Child/View" asp-route-childid="@Model.EnrollmentObj.Child.ChildID"> @Model.EnrollmentObj.Child.ChildFirst @Model.EnrollmentObj.Child.ChildLast</a></span>
+                            </div>
+                        </div>
+                    }
+                }
+                @if (@Model.EnrollmentObj.Application.ApplicationID == 0 && @Model.EnrollmentObj.Enrollment.EnrollmentID == 0)
+                {
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Application</span>
+                        </div>
+                        <div class="col-12">
+                            @*<input id="applicationID" type="hidden" value="@Model.EnrollmentObj.Application.ApplicationID" />*@
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Application.ApplicationID,
+                                                                Model.EnrollmentObj.ApplicationList,
+
+                                                                new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlApplication" })
+
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Application.ApplicationID"></span>
+                        </div>
+
+                    </div>
+                }
+                @if (@Model.EnrollmentObj.Enrollment.EnrollmentID == 0)
+                {
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Hour block</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="hourBlock" type="hidden" value="@Model.EnrollmentObj.Enrollment.HourBlock" />
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.HourBlock,
+                                                                Model.EnrollmentObj.HourBlocks,
+
+                                                                new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlHourBlock" })
+
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.HourBlock"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Program</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="programID" type="hidden" value="@Model.EnrollmentObj.Enrollment.ProgramID" />
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.ProgramID,
+                                                                Model.EnrollmentObj.ProgramList,
+
+                                                                new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlProgram" })
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.ProgramID"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Semester</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="semID" type="hidden" value="@Model.EnrollmentObj.Semester.SemesterID" />
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.SemesterID,
+                                                               Model.EnrollmentObj.SemesterList,
+
+                                                               new { @onchange = "ValidateEnrollment()", @class = "form-control", @id = "ddlSemester" })
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.SemesterID"></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Hour block</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="hourBlock" type="hidden" value="@Model.EnrollmentObj.Enrollment.HourBlock" />
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.HourBlock,
+                                                                Model.EnrollmentObj.HourBlocks,
+
+                                                                new { @onchange = "ValidateUpdate()", @class = "form-control", @id = "ddlHourBlock" })
+
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.HourBlock"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Program</span>
+                        </div>
+                        <div class="col-12">
+                            <input id="programID" type="hidden" value="@Model.EnrollmentObj.Enrollment.ProgramID" />
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.ProgramID,
+                                                                Model.EnrollmentObj.ProgramList,
+
+                                                                new { @onchange = "ValidateUpdate()", @class = "form-control", @id = "ddlProgram" })
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.ProgramID"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <span class="info-text font-weight-bold">Semester</span>
+                        </div>
+                        <div class="col-12">
+
+                            @Html.DropDownListFor(e => e.EnrollmentObj.Enrollment.SemesterID,
+                                                               Model.EnrollmentObj.SemesterList,
+
+                                                               new { @onchange = "ValidateUpdate()", @class = "form-control", @id = "ddlSemester" })
+                            <span class="text-danger" asp-validation-for="EnrollmentObj.Enrollment.SemesterID"></span>
+                        </div>
+                    </div>
+                }
+
+            </fieldset>
+            <fieldset class="offset-md-1 col-md-5">
+                <legend class="color-1">Enrollments</legend>
+                @foreach (var enrollment in @Model.EnrollmentObj.Enrollments)
+                {
+                    <span class="pl-3 info-text"><a asp-page="/Admin/Enrollments/Upsert" asp-route-enrollmentID="@enrollment.EnrollmentID" asp-route-applicationID="@enrollment.ApplicationID">@enrollment.Program.ProgramName  @enrollment.HourBlock   @enrollment.Semester.SemesterName <i class="fi-arrow-right">‌</i></a></span>
+                    <br />
+                }
+            </fieldset>
+            <!--Actions-->
+            <fieldset class="  col-md-11">
+                <legend class="color-1">Actions</legend>
+                <br />
+                <br />
+                <div class="row mb-2 float-center">
+                    <div class="col-12">
+                        <a href="/Admin/Enrollments/Index">Back to Enrollments</a>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                @if (@Model.EnrollmentObj.Application.ApplicationID != 0 && @Model.EnrollmentObj.Enrollment.EnrollmentID != 0)
+                {
+                    <div class="row mb-2 ">
+
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success btn-block" id="btnUpdate" asp-route-enrollmentID="@Model.EnrollmentObj.Enrollment.EnrollmentID" disabled><i class="fas fa-lock"></i> Update</button>
+                        </div>
+                        <div class="col-6" id="x">
+
+                            <a asp-page="/Admin/Enrollments/Upsert" class="btn btn-success btn-block" asp-route-applicationID="@Model.EnrollmentObj.Application.ApplicationID" asp-route-enrollmentID="0"  >
+                                <i class="fas fa-plus"></i>&nbsp;Add Enrollment
+                            </a>
+
+                            @*<button type="submit" class="btn btn-success btn-block" id="btnCreate" asp-page-handler="Create" asp-route-id="@Model.EnrollmentObj.Enrollment.EnrollmentID" disabled><i class="fas fa-lock"></i>Add Enrollment</button>*@
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row mb-2 float-center">
+
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-success btn-block " id="btnCreate" asp-page-handler="Create" asp-route-applicationID="@Model.EnrollmentObj.Application.ApplicationID"  disabled><i class="fas fa-lock"></i> Save</button>
+                        </div>
+                        
+                    </div>
+                }
+
+            </fieldset>
+        </div>
+    </div>
+</form>
+@section Scripts{
+   
+    <script src="~/js/admin/enrollments.js"></script>
+}
+

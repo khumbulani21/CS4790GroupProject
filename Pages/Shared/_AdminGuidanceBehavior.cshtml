@@ -1,0 +1,155 @@
+﻿@model ApplicationCore.Models.GuidanceAndBehavior
+
+<div class="reveal modal-small" id="guidanceBehavior" data-reveal>
+    <h2 class="border-bottom">Guidance &amp; Behavior</h2>
+    <div class="row m-3">
+        <label for="management">Would you judge your child to be:</label>
+
+        <select disabled asp-for="@Model.behaviorManagement">
+            <option value=""></option>
+            <option value="Easily Managed">Easily Managed</option>
+            <option value="Fairly Easy to Manage">Fairly Easy to Manage</option>
+            <option value="Difficult to Manage">Difficult to Manage</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="behavior">How many times within the past week have you had to re‐direct your child’s behavior?</label>
+
+        <select disabled asp-for="@Model.weeklyBehaviorRedirection">
+            <option value=""></option>
+            <option value="0">0</option>
+            <option value="1-2">1-2</option>
+            <option value="3-4">3-4</option>
+            <option value="5-6">5-6</option>
+            <option value="7-8">7-8</option>
+            <option value="9">9</option>
+            <option value="10+">10+</option>
+        </select>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            Are there any special circumstances in the family which may be a factor in your child’s present behavior i.e.
+            divorce, death, new baby, recent move, hospitalization, etc. ? Please explain.
+            <textarea disabled asp-for="@Model.behaviorFamilyCircumstances" rows="5"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            What are the child’s strengths?
+            <textarea disabled asp-for="@Model.childsStrengths" rows="4"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            What concerns do you have about your child’s present behavior?
+            <textarea disabled asp-for="@Model.currentConcernsBehavior" rows="4"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            What are you doing about these concerns?
+            <textarea disabled asp-for="@Model.actionForConcerns" rows="4"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            When your child has done something wrong, how often do you:
+        </div>
+    </div>
+    <div class="row m-3">
+        <label for="time-out">Use time‐out; make him/her stand or sit in a corner or chair</label>
+
+        <select disabled asp-for="@Model.timeOut">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="room">Send your child to his/her room.</label>
+
+        <select disabled asp-for="@Model.sendToRoom">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="privileges">
+            Take away privileges or object/toy for a period of time, restrict
+            access.
+        </label>
+
+        <select disabled asp-for="@Model.losePrivileges">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="chores">Give extra chores</label>
+
+        <select disabled asp-for="@Model.extraChores">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="attention">
+            Re‐direct, distract, or turn the child’s attention to something else.
+        </label>
+
+        <select disabled asp-for="@Model.redirectToSomethingElse">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="discuss">
+            Discuss the problem, ask questions, and/or teach them.
+        </label>
+
+        <select disabled asp-for="@Model.discussProblem">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <label for="Ignore">
+            Ignore it.
+        </label>
+
+        <select disabled asp-for="@Model.ignoreIt">
+            <option value=""></option>
+            <option value="Never">Never</option>
+            <option value="Rarely">Rarely</option>
+            <option value="Sometimes">Sometimes</option>
+            <option value="Often">Often</option>
+            <option value="Always">Always</option>
+        </select>
+    </div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

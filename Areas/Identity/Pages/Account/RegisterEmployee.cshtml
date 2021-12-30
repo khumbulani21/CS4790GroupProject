@@ -1,0 +1,72 @@
+﻿@page
+@model CS4790GroupProject.Areas.Identity.Pages.Account.RegisterEmployeeModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container font-1-13">
+    <fieldset>
+        <legend class="xxlarge color-1">Registration</legend>
+        <form method="post" autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-sm-12">
+                    <fieldset>
+                        <legend class="color-1">Account Info</legend>
+                        <label for="weberrelationship">Role</label>
+                        <select id="relationship" asp-for="Input.Role">
+                            <option disable value="">--</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Employee">Employee</option>
+
+                        </select>
+                        <span asp-validation-for="Input.Role" class="text-danger"></span>
+
+                        <label for="firstName" class="">First Name</label>
+                        <input type="text" asp-for="Input.FirstName" id="firstName" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+
+                        <label for="lastName" class="">Last Name</label>
+                        <input type="text" asp-for="Input.LastName" id="lastName" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+
+                        <label for="weberNumber" class="">Weber State W#</label>
+                        <input type="text" asp-for="Input.WeberNumber" id="weberNumber" />
+                        <span asp-validation-for="Input.WeberNumber" class="text-danger"></span>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="email">Email</label>
+                                <input type="email" asp-for="Input.Email" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+                                <label for="phone">Phone #</label>
+                                <input type="tel" asp-for="Input.PhoneNumber" placeholder="123-456-789" />
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <label for="password" class="">Password</label>
+                        <input type="password" asp-for="Input.Password" id="password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                        <label for="confirmPassword" class="">Confirm Password</label>
+                        <input type="password" asp-for="Input.ConfirmPassword" id="confirmPassword" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </fieldset>
+                </div>
+            </div>
+           
+           
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="button large">Submit</button>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

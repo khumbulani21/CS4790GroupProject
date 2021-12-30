@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ApplicationCore.Models
+@using Infrastructure.Services
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<section class="dropdown-nav">
+    <nav id="navDropdown">
+        <div class="top-bar-holder">
+            <div Class="title-bar" data-responsive-toggle="main-menu" data-hide-for="xlarge">
+                <div Class="right">
+                    <Button type="button" data-toggle><img src="https://www.weber.edu/ui/images/icons/control-strip/menu.svg" alt="Navigation Menu"></Button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="top-bar-left" id="main-menu">
+                    <div class="top-bar-right">
+                        <ul class="menu" id="drilldown-menu" data-auto-height="true" data-responsive-menu="drilldown xlarge-dropdown">
+                            <li role="menuitem">
+                                <a asp-page="/Guardians/Index" asp-route-id="@UserManager.GetUserId(User)"
+                                   class="fancy-link">Home</a>
+                            </li>
+                            <li role="menuitem">
+                                <a asp-page="/Guardians/Children/Index" asp-route-id="@UserManager.GetUserId(User)" target="_self"
+                                   class="fancy-link">Children</a>
+                            </li>
+                            <li role="menuitem">
+                                <a asp-page="/Guardians/Addresses/Index" asp-route-id="@UserManager.GetUserId(User)" target="_self"
+                                   class="fancy-link">Guardian Info</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Guardians/ApplyPreschool" asp-route-id="@UserManager.GetUserId(User)" target="_self"
+                                   class="fancy-link">Apply Now</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Guardians/ViewApplication" asp-route-id="@UserManager.GetUserId(User)" target="_self"
+                                   class="fancy-link">Submitted Applications</a>
+                            </li>
+                            <li>
+                                <a asp-page="/Guardians/VolunteerOpportunity" asp-route-id="@UserManager.GetUserId(User)" target="_self"
+                                   class="fancy-link">Volunteer Opportunities</a>
+                            </li>
+                            <li>
+                                <a href="/About" target="_self" class="fancy-link">About</a>
+                            </li>
+                            <li>
+                                <partial name="_LoginPartial" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>

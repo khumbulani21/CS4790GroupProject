@@ -1,0 +1,195 @@
+﻿@page
+@using Infrastructure.Services;
+@model CS4790GroupProject.Pages.Admin.Reports.ProgramReportModel
+@{
+    ViewData["Title"] = "Program Analytics";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <fieldset class="col-md-5">
+                <legend class="color-1">Program Summary</legend>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Program</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="pl-3 info-text">@Model.CurrentProgram.ProgramName</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Semester</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="pl-3 info-text">@Model.CurrentSemester.SemesterName</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Amount of Children</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="info-text pl-3">@Model.ListOfChildren.Count()</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="offset-md-1 col-md-5">
+                <legend class="color-1">Race Diversity Report</legend>
+                <div class="row">
+                    <div id="raceDiversityChart"></div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row">
+            <fieldset class="col-md-5">
+                <legend class="color-1">Gender Diversity Report</legend>
+                <div id="genderDiversityChart"></div>
+            </fieldset>
+            <fieldset class="offset-md-1 col-md-5">
+                <legend class="color-1">Ethnicity Diversity Report</legend>
+                <div id="ethnicityDiversityChart"></div>
+            </fieldset>
+        </div>
+
+        <div class="mb-5 mt-2" id="buttonDive">
+            <div class="row justify-content-center">
+                <a class="button shadow m-2 bg-success" onclick="showData()">Display Data!</a>
+            </div>
+        </div>
+
+        <div class="row dataDive" name="dataDive" id="dataDive" style="display:none">
+            <fieldset class="col-md-6 offset-md-3">
+                <legend class="color-1">Data Dive Report</legend> 
+
+
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Race</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="pl-3 info-text">@SD.AmericanIndianorAlaskaNative: @Model.NativeRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.Asian: @Model.AsianRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.BlackorAfricanAmerican: @Model.BlackRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.NativeHawaiianorOtherPacificIslander: @Model.PacificIslanderRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.White: @Model.WhiteRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.Other: @Model.OtherRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.PreferNotToRespond: @Model.PreferNotToRespondRatioAmount</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Gender</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="pl-3 info-text">@SD.Female: @Model.FemaleRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.Male: @Model.MaleRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.Other: @Model.OtherGenderRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.PreferNotToRespond: @Model.PreferNotToSayGenderRatioAmount</span>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="info-text font-weight-bold">Ethnicity</span>
+                    </div>
+                    <div class="col-12">
+                        <span class="pl-3 info-text">@SD.HispanicorLatino: @Model.HispanicorLatinoRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.NotHispanicorLatino: @Model.NotHispanicorLatinoRatioAmount</span>
+                        <span class="pl-3 info-text">@SD.PreferNotToRespond: @Model.PreferNotToRespondEthnicityRatioAmount</span>
+                    </div>
+                </div>
+
+                <div class="mb-5 mt-2" id="buttonDive">
+                    <div class="row justify-content-center">
+                        <a class="button shadow m-2 bg-danger" onclick="showData()">Hide Data!</a>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Race Diversity Chart
+            var dataRace = google.visualization.arrayToDataTable([
+                ['Race', 'Ratio'],
+                ['@SD.AmericanIndianorAlaskaNative', @Model.NativeRatioAmount],
+                ['@SD.Asian', @Model.AsianRatioAmount],
+                ['@SD.BlackorAfricanAmerican', @Model.BlackRatioAmount],
+                ['@SD.NativeHawaiianorOtherPacificIslander', @Model.PacificIslanderRatioAmount],
+                ['@SD.White', @Model.WhiteRatioAmount],
+                ['@SD.Other', @Model.OtherRatioAmount],
+                ['@SD.PreferNotToRespond', @Model.PreferNotToRespondRatioAmount]
+            ]);
+
+            var optionsRace = {
+                title: 'Race Diversity Ratio for this Program',
+                is3D: true
+            };
+
+            // Gender Diversity Chart
+            var dataGender = google.visualization.arrayToDataTable([
+                ['Gender', 'Ratio'],
+                ['@SD.Male', @Model.MaleRatioAmount],
+                ['@SD.Female', @Model.FemaleRatioAmount],
+                ['@SD.PreferNotToRespond', @Model.PreferNotToSayGenderRatioAmount],
+                ['@SD.Other', @Model.OtherGenderRatioAmount]
+            ]);
+
+            var optionsGender = {
+                title: 'Gender Diversity Ratio for this Program',
+                is3D: true
+            };
+
+
+            // Ethnicity Diversity Chart
+            var dataEthnicity = google.visualization.arrayToDataTable([
+                ['Ethnicity', 'Ratio'],
+                ['@SD.HispanicorLatino', @Model.HispanicorLatinoRatioAmount],
+                ['@SD.NotHispanicorLatino', @Model.NotHispanicorLatinoRatioAmount],
+                ['@SD.PreferNotToRespond', @Model.PreferNotToRespondEthnicityRatioAmount]
+            ]);
+
+            var optionsEthnicity = {
+                title: 'Ethnicity Diversity Ratio for this Program',
+                is3D: true
+            };
+
+            var chartRace = new google.visualization.PieChart(document.getElementById('raceDiversityChart'));
+            chartRace.draw(dataRace, optionsRace);
+
+            var chartGender = new google.visualization.PieChart(document.getElementById('genderDiversityChart'));
+            chartGender.draw(dataGender, optionsGender);
+
+            var chartEthnicity = new google.visualization.PieChart(document.getElementById('ethnicityDiversityChart'));
+            chartEthnicity.draw(dataEthnicity, optionsEthnicity);
+        }
+
+        function showData() {
+            var dataDiveDiv = document.getElementById("dataDive");
+            if (dataDiveDiv.style.display === "none") {
+                dataDiveDiv.style.display = "block";
+            } else {
+                dataDiveDiv.style.display = "none";
+            }
+
+            var dataDiveButton = document.getElementById("buttonDive");
+            if (dataDiveButton.style.display === "none") {
+                dataDiveButton.style.display = "block";
+            } else {
+                dataDiveButton.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
